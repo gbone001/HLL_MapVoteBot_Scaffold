@@ -1,6 +1,7 @@
 
 import discord
 from utils.persistence import load_json, save_json
+from utils.maps import base_map_code, normalize_cooldowns
 from services.voting import determine_winner
 from services.crcon_client import add_map_as_next_rotation
 from services.channel_msgs import ensure_persistent_messages, update_channel_row
@@ -45,11 +46,11 @@ async def close_round_and_push(bot, guild_id, channel_id, round_id: int):
 
     await add_map_as_next_rotation(winner_map)
 
-    cds = load_json("cooldowns.json", {})
-    for k, v in list(cds.items()):
-        cds[k] = max(0, v - 1)
+    cds = normalize_cooldowns(load_json("cooldowns.json", {}))
+    for k in list(cds.keys()):
+        cds[k] = max(0, int(cds[k]) - 1)
     round_cd = r.get("meta", {}).get("mapvote_cooldown", load_json("config.json", {}).get("mapvote_cooldown", 2))
-    cds[winner_map] = round_cd
+    cds[base_map_code(winner_map)] = int(round_cd)
     save_json("cooldowns.json", cds)
 
     r["status"] = "pushed"
