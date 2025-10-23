@@ -1,0 +1,438 @@
+{
+  "PHL_L_1944_Warfare": [
+    [
+      "BLOODY BEND;"
+    ],
+    [
+      "JOURDANCANAL",
+      "GROULTPIBOX",
+      "MADELEINEFARM",
+      "INGOURCROSSROADS"
+    ],
+    [
+      "DEADMAN SCORNER",
+      "DOUVEIBRIDGE",
+      "CARENTAN CAUSEWAY"
+    ],
+    [
+      "MADELEINE BRIDGE",
+      "ROADHTO CARENTAN"
+    ],
+    [
+      "EORWARDIBATIERY",
+      "DOUVBRIVERIBAJITERY",
+      "FLAKPOSITION",
+      "AID STATION",
+      "@CABBAGEIPATCH"
+    ]
+  ],
+  "carentan_warfare": [
+    [
+      "BLACUOT",
+      "GO2NDISIARI",
+      "FARMRUINS"
+    ],
+    [
+      "PUMPING STATICN",
+      "RUINS",
+      "DERAILED TRAIN"
+    ],
+    [
+      "CANAL CROSSING",
+      "TOWN CENTER",
+      "TRAIN STATION"
+    ],
+    [
+      "CUSICMS",
+      "RAILCROSSING",
+      "MONTQALNIS"
+    ],
+    [
+      "CANAL LOCKS",
+      "RAILLCAUSEWAY",
+      "@AMAISCNDESZORHES"
+    ]
+  ],
+  "elalamein_warfare": [
+    [
+      "VEHICLE DEPOT",
+      "JARTLLERVEGUNS}",
+      "MTEIRIYARIDGE"
+    ],
+    [
+      "HAMLET RUINS",
+      "MREIRI",
+      "WATCHTOWER"
+    ],
+    [
+      "DESERT RAT TRENCHES",
+      "OASIS",
+      "NALLEYI"
+    ],
+    [
+      "FUEL DEPOT",
+      "AIRFIELDKCOMMAND",
+      "'AIRFLELD HANGARS"
+    ],
+    [
+      "CLIFFSIDE VILLAGE",
+      "'AMBUSHEDICONVOY",
+      "QUARRY"
+    ]
+  ],
+  "elsenbornridge_warfare": [
+    [
+      "99TH COMMAND CENTRE",
+      "ROAD TO ELSENBORN RIDGE",
+      "ERELSDELL FARMHOUSE"
+    ],
+    [
+      "ELSENBORN RIDGE",
+      "SUPPLY CACHE"
+    ],
+    [
+      "GUN BATTERY",
+      "FARAHILDE FARM",
+      "DUG OUT TANK",
+      "AA BATTERY",
+      "FOXHOLES"
+    ],
+    [
+      "CHECKPOINT",
+      "HINTERBURG",
+      "FUEL DEPOT"
+    ],
+    [
+      "US. CAMP",
+      "JENSIT PILLBOXES"
+    ]
+  ],
+  "foy_warfare": [
+    [
+      "ROAD TORECOGNE",
+      "WEST BEND",
+      "N3O HIGHWAY",
+      "ROAD DOBASIOGNE"
+    ],
+    [
+      "COBRUFAGTORY",
+      "FOX",
+      "BOISJACQUES"
+    ],
+    [
+      "COBRUAPPROACH",
+      "L",
+      "SOUTHERNEDGE",
+      "BIZORY-FOYROAD"
+    ],
+    [
+      "ROAD TO NOVILLE",
+      "4_",
+      "T"
+    ],
+    [
+      "ELAKSBATTERY",
+      "DUGOUT BARN",
+      "EASTERNOURTHE",
+      "FORESTOUTSKIRTS"
+    ]
+  ],
+  "hill400_warfare": [
+    [
+      "CONVOYAMBUSH\"",
+      "'FEDERHECKEJUNCTION",
+      "STUCKCHEN FARM '"
+    ],
+    [
+      "ROERRIER HOUSE",
+      "BERGSTEIN CHURCH",
+      "KIRCHWEG"
+    ],
+    [
+      "FLAKPIIS",
+      "HILL4QO",
+      "SOUTHERN APPROACH,"
+    ],
+    [
+      "ESELSWEGIIUNGTION",
+      "EASTERNSLOPE",
+      "TRAINWRECK"
+    ],
+    [
+      "ROERRIVER CROSSING",
+      "ZERKALLI",
+      "PAPERIMIIL"
+    ]
+  ],
+  "hurtgenforest_warfare_V2": [
+    [
+      "THEMAUSBACHAPPROACH",
+      "RESERVESTATION",
+      "@UMBER YARD"
+    ],
+    [
+      "WEHEBACH OVERLOOK",
+      "KALLTRAIL",
+      "THERUIN"
+    ],
+    [
+      "NORTH PASS",
+      "THESCAR",
+      "THESIEGFRIEDUNE"
+    ],
+    [
+      "HILL 15",
+      "VACOB'SBARN",
+      "SAQENT42"
+    ],
+    [
+      "GROSSHAUAPPROACH",
+      "HUREGENAPPROACH",
+      "LOGGINGCAMP"
+    ]
+  ],
+  "kharkov_warfare": [
+    [
+      "MARSHIHTOWN",
+      "BITTERSPRING",
+      "WATERMLL",
+      "WEHRMACHTFOUJLOOK"
+    ],
+    [
+      "RIVERI@ROSSING"
+    ],
+    [
+      "SOVIETVANTAGEPPOINT",
+      "@UMBERWORKS",
+      "STMARY",
+      "BELGOROD OUTSKIRTS",
+      "HAY STORAGE"
+    ],
+    [
+      "GERMANFUELDUMP",
+      "OVERPASS"
+    ],
+    [
+      "WINDMILLHHILLSIDE",
+      "DISTILLERY",
+      "@UMBERYARD"
+    ]
+  ],
+  "kursk_warfare": [
+    [
+      "ARTILLERY POSITON",
+      "PANZERSEND",
+      "ROAD TOKURSK"
+    ],
+    [
+      "IHEWLDMILLS",
+      "RUDNO"
+    ],
+    [
+      "GRUSHKI",
+      "DEFENCEINDEPTH",
+      "VAMKI",
+      "DESIROYEDIBATTERY",
+      "AMMO DUMP"
+    ],
+    [
+      "EASTERNPOSITION"
+    ],
+    [
+      "GRUSHKIELANK",
+      "WSTENINGPOST",
+      "@LEGSHOUSE",
+      "TEMUDDI@HURN"
+    ]
+  ],
+  "omahabeach_warfare": [
+    [
+      "BEAUMONTROAD",
+      "CROSSROADS",
+      "3",
+      "TESISIES"
+    ],
+    [
+      "REAR BATTERY",
+      "CHURCHIROAD",
+      "IHBORCHARDS"
+    ],
+    [
+      "WESTVIERVIILE",
+      "VERVIQEISURMER",
+      "ARTIMERYBATTERY"
+    ],
+    [
+      "WN7Z",
+      "WNZI",
+      "WNZO"
+    ],
+    [
+      "DOGGREEN",
+      "HBDRAW",
+      "DOGWHIIE"
+    ]
+  ],
+  "remagen_warfare": [
+    [
+      "ALTELIEBEBARSCH",
+      "ERPEL",
+      "STZSEVERIN CHAPEL",
+      "WALDBURG"
+    ],
+    [
+      "REMAGEN"
+    ],
+    [
+      "BEWALDETHKREUZUNG",
+      "ERPELER LEY",
+      "LUDENDORFF BRIDGE",
+      "MOBELFABRIK",
+      "MUHLENWEG"
+    ],
+    [
+      "HAGELKREUZ"
+    ],
+    [
+      "DANIRADART52",
+      "KASBACHOULOOK",
+      "BAUERNHOEAMRHEIN",
+      "SCHLIEFFENYAUSWEG"
+    ]
+  ],
+  "stalingrad_warfare": [
+    [
+      "MAMAYEV APPROACH",
+      "NAILFACTORY",
+      "CITYOVERLOOK"
+    ],
+    [
+      "DOLGIYRAVINE",
+      "MELLOWHHOUSE",
+      "KOMSOMOLIHQ"
+    ],
+    [
+      "RAILWAY CROSSING",
+      "@ARRIAGEDEPO",
+      "MRAINSTATION"
+    ],
+    [
+      "HOUSEOF THEWORKERS",
+      "PAVLOVSIHOUSE",
+      "@HEBREWERY"
+    ],
+    [
+      "LSHAPEDHHOUSE",
+      "GRUDININSIMILL",
+      "MOLGABANKS"
+    ]
+  ],
+  "stmariedumont_warfare": [
+    [
+      "WINTERS LANDING",
+      "BRECOURT BATTERY",
+      "THEDUGQUT",
+      "HUGOSFFARM"
+    ],
+    [
+      "THE@ORNER"
+    ],
+    [
+      "LE GRANDICHEMIN",
+      "@ATTLESHEDS",
+      "'AAYNETWORK",
+      "THEHHAMLET",
+      "HILLC6"
+    ],
+    [
+      "RUEDELAIGARE",
+      "PIERRESTARM",
+      "THEFIELDS"
+    ],
+    [
+      "THEBARN",
+      "STEMARIEDUM@NT"
+    ]
+  ],
+  "stmereeglise_warfare": [
+    [
+      "FLAKIPOSITION",
+      "VAULAVILLE",
+      "LAHPRAIRIE"
+    ],
+    [
+      "ROUJEADUIHARAS",
+      "WESTERNTAPPROACH",
+      "RUEIDEGAMBOSVILLE"
+    ],
+    [
+      "HOSPICE",
+      "STE MERE EGLISE",
+      "CHECKPOINT"
+    ],
+    [
+      "YARTILLERYIBATHERY",
+      "THECCEMETERY",
+      "MAISONIIDUICRIQUE"
+    ],
+    [
+      "LESMVIEUXIVERGERS",
+      "THEDRAW",
+      "RUISSEAUDEIFERME"
+    ]
+  ],
+  "tobruk_warfare": [
+    [
+      "GUARD ROOM",
+      "TANK GRAVEYARD",
+      "DIVISION HEADQUARTERS"
+    ],
+    [
+      "WEST CREEK",
+      "ALBERGO RISTORANTE MODERNO",
+      "KING SQUARE"
+    ],
+    [
+      "DESERT RAT CAVES",
+      "CHURCH GROUNDS",
+      "ADMIRALTY HOUSE"
+    ],
+    [
+      "ABANDONED AMMO CACHE",
+      "8TH ARMY MEDICAL HOSPITAL",
+      "SUPPLY DROP"
+    ],
+    [
+      "ROAD TO SENUSSI MINE",
+      "MAKESHIFT AID STATION",
+      "CARGO WAREHOUSES"
+    ]
+  ],
+  "utahbeach_warfare": [
+    [
+      "MAMMUT RADAR",
+      "FLOODEDHOUSE",
+      "SAINTEMARIEAPPROACH"
+    ],
+    [
+      "SUNKENBRIDGE",
+      "EAGRANDEICRIQUE",
+      "DROWNEDIFIELDS"
+    ],
+    [
+      "WNA",
+      "THEICHAPEL",
+      "WN7;"
+    ],
+    [
+      "AABAMERY",
+      "HILL5",
+      "WNS"
+    ],
+    [
+      "TARE GREEN",
+      "REDROORHOUSE",
+      "UNCLERED"
+    ]
+  ]
+}
