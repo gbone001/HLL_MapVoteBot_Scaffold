@@ -14,7 +14,7 @@
 1. Fill `bot/data/config.json` with your IDs and CRCON.
 2. `docker compose up -d` (or run `python bot/main.py` in a Python env with requirements installed).
 3. Use `/vote_start` for a manual test.
-4. Use `/schedule_set` to add a cron schedule (e.g., pool=`Warfare Week A`, cron=`0 18 * * FRI`, mapvote_cooldown=`3`).
+4. Use `/schedule_set` to add a schedule (e.g., pool=`Warfare Week A`, aps.trigger=`cron`, aps.hour=`18`, aps.minute=`0`, aps.day_of_week=`fri`, mapvote_cooldown=`3`).
 
 ## Schedule JSON example
 ```json
@@ -39,6 +39,7 @@
   }
 }
 ```
+The example above uses an APS `cron` trigger that fires every Friday at 18:00.
 
 ## In-bot Scheduler
 - The bot starts an **AsyncIOScheduler** (AEST/AEDT timezone) and loads all entries from `schedules.json`.
