@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Warfare Week A",
+    "maps": [
+      "PHL_L_1944_Warfare",
+      "SME_L_1944_Warfare"
+    ],
+    "active": true
+  }
+]

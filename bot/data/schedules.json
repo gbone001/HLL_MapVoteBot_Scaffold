@@ -1,0 +1,17 @@
+[
+  {
+    "pool": "Warfare Week A",
+    "cron": "0 18 * * FRI",
+    "mapvote_cooldown": 3,
+    "settings": {
+      "high_ping_threshold_ms": 180,
+      "votekick_enabled": true,
+      "votekick_threshold": "60",
+      "votekick_reset": false,
+      "autobalance_enabled": true,
+      "autobalance_threshold": 4,
+      "team_switch_cooldown_minutes": 10,
+      "idlekick_duration_minutes": 8
+    }
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "guild_id": "YOUR_GUILD_ID",
+  "vote_channel_id": "YOUR_CHANNEL_ID",
+  "vote_duration_minutes": 60,
+  "mapvote_cooldown": 2,
+  "scheduler_reload_minutes": 60,
+  "crcon": {
+    "host": "127.0.0.1",
+    "port": 7010,
+    "password": "supersecret"
+  }
+}
