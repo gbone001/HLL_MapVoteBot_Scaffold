@@ -20,7 +20,12 @@
 ```json
 {
   "pool": "Warfare Week A",
-  "cron": "0 18 * * FRI",
+  "aps": {
+    "trigger": "cron",
+    "minute": 0,
+    "hour": 18,
+    "day_of_week": "fri"
+  },
   "mapvote_cooldown": 3,
   "settings": {
     "high_ping_threshold_ms": 180,
