@@ -5,8 +5,7 @@ services:
     image: python:3.12-slim
     working_dir: /app
     volumes:
-      - ./bot:/app
-      - ./bot/data:/app/data
+      - ./:/app
     env_file: .env
-    command: ["python", "main.py"]
+    command: ["bash", "-lc", "pip install --no-cache-dir -r requirements.txt && python bot/main.py"]
     restart: unless-stopped
