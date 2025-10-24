@@ -1,12 +1,12 @@
 {
-  "guild_id": "YOUR_GUILD_ID",
-  "vote_channel_id": "YOUR_CHANNEL_ID",
+  "guild_id": "1318878021335388255",
+  "vote_channel_id": "1322197840495378432",
   "vote_duration_minutes": 60,
-  "mapvote_cooldown": 2,
+  "mapvote_cooldown": 4,
   "scheduler_reload_minutes": 60,
   "crcon": {
-    "host": "127.0.0.1",
-    "port": 7010,
-    "password": "supersecret"
+    "host": "45.137.245.36",
+    "port": 28016,
+    "password": "satch"
   }
 }
