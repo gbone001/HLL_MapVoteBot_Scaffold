@@ -1,12 +1,1152 @@
 [
   {
-    "code": "PHL_L_1944_Warfare",
-    "name": "Purple Heart Lane (Warfare)",
+    "code": "CAR_S_1944_Day_P_Skirmish",
+    "queryName": "DEV_F_DAY_SKM",
+    "prettyName": "CARENTAN Skirmish",
+    "base": "Carentan",
+    "gamemode": "Skirmish",
+    "environment": "Day",
+    "attackers": "",
     "enabled": true
   },
   {
-    "code": "SME_L_1944_Warfare",
-    "name": "Sainte-M\u00e8re-\u00c9glise (Warfare)",
+    "code": "CAR_S_1944_Dusk_P_Skirmish",
+    "queryName": "DEV_F_DUSK_SKM",
+    "prettyName": "CARENTAN Skirmish",
+    "base": "Carentan",
+    "gamemode": "Skirmish",
+    "environment": "Dusk",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "CAR_S_1944_Rain_P_Skirmish",
+    "queryName": "DEV_F_RAIN_SKM",
+    "prettyName": "CARENTAN Skirmish",
+    "base": "Carentan",
+    "gamemode": "Skirmish",
+    "environment": "Rain",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "carentan_offensive_ger",
+    "queryName": "CT",
+    "prettyName": "CARENTAN Offensive",
+    "base": "Carentan",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "carentan_offensive_us",
+    "queryName": "CT",
+    "prettyName": "CARENTAN Offensive",
+    "base": "Carentan",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "carentan_warfare",
+    "queryName": "CT",
+    "prettyName": "CARENTAN Warfare",
+    "base": "Carentan",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "carentan_warfare_night",
+    "queryName": "CT_N",
+    "prettyName": "CARENTAN NIGHT Warfare",
+    "base": "Carentan",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "driel_offensive_ger",
+    "queryName": "Driel_Day",
+    "prettyName": "DRIEL Offensive",
+    "base": "Driel",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "driel_offensive_us",
+    "queryName": "Driel_Day",
+    "prettyName": "DRIEL Offensive",
+    "base": "Driel",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "GB",
+    "enabled": true
+  },
+  {
+    "code": "driel_warfare",
+    "queryName": "Driel",
+    "prettyName": "DRIEL Warfare",
+    "base": "Driel",
+    "gamemode": "Warfare",
+    "environment": "Dawn",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "driel_warfare_night",
+    "queryName": "Driel_N",
+    "prettyName": "DRIEL Warfare",
+    "base": "Driel",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "DRL_S_1944_P_Skirmish",
+    "queryName": "DEV_C_SKM",
+    "prettyName": "DRIEL Skirmish",
+    "base": "Driel",
+    "gamemode": "Skirmish",
+    "environment": "Dawn",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "DRL_S_1944_Day_P_Skirmish",
+    "queryName": "DEV_C_Day_SKM",
+    "prettyName": "DRIEL Skirmish",
+    "base": "Driel",
+    "gamemode": "Skirmish",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "DRL_S_1944_Night_P_Skirmish",
+    "queryName": "DEV_C_Night_SKM",
+    "prettyName": "DRIEL Skirmish",
+    "base": "Driel",
+    "gamemode": "Skirmish",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "ELA_S_1942_P_Skirmish",
+    "queryName": "DEV_D_Day_SKM",
+    "prettyName": "EL ALAMEIN Skirmish",
+    "base": "El Alamein",
+    "gamemode": "Skirmish",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "ELA_S_1942_Night_P_Skirmish",
+    "queryName": "DEV_D_Night_SKM",
+    "prettyName": "EL ALAMEIN Skirmish",
+    "base": "El Alamein",
+    "gamemode": "Skirmish",
+    "environment": "Dusk",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "elalamein_offensive_CW",
+    "queryName": "elalamein",
+    "prettyName": "EL ALAMEIN Offensive",
+    "base": "El Alamein",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "B8A",
+    "enabled": true
+  },
+  {
+    "code": "elalamein_offensive_ger",
+    "queryName": "elalamein",
+    "prettyName": "EL ALAMEIN Offensive",
+    "base": "El Alamein",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "DAK",
+    "enabled": true
+  },
+  {
+    "code": "elalamein_warfare",
+    "queryName": "elalamein",
+    "prettyName": "EL ALAMEIN Warfare",
+    "base": "El Alamein",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "elalamein_warfare_night",
+    "queryName": "elalamein_N",
+    "prettyName": "EL ALAMEIN Warfare",
+    "base": "El Alamein",
+    "gamemode": "Warfare",
+    "environment": "Dusk",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "elsenbornridge_offensiveger_day",
+    "queryName": "DEV_N",
+    "prettyName": "ELSENBORN RIDGE Offensive",
+    "base": "Elsenborn Ridge",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "elsenbornridge_offensiveger_morning",
+    "queryName": "DEV_N_Morning",
+    "prettyName": "ELSENBORN RIDGE Offensive",
+    "base": "Elsenborn Ridge",
+    "gamemode": "Offensive",
+    "environment": "Dawn",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "elsenbornridge_offensiveger_night",
+    "queryName": "DEV_N_Night",
+    "prettyName": "ELSENBORN RIDGE Offensive",
+    "base": "Elsenborn Ridge",
+    "gamemode": "Offensive",
+    "environment": "Night",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "elsenbornridge_offensiveUS_day",
+    "queryName": "DEV_N",
+    "prettyName": "ELSENBORN RIDGE Offensive",
+    "base": "Elsenborn Ridge",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "elsenbornridge_offensiveUS_morning",
+    "queryName": "DEV_N_Morning",
+    "prettyName": "ELSENBORN RIDGE Offensive",
+    "base": "Elsenborn Ridge",
+    "gamemode": "Offensive",
+    "environment": "Dawn",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "elsenbornridge_offensiveUS_night",
+    "queryName": "DEV_N_Night",
+    "prettyName": "ELSENBORN RIDGE Offensive",
+    "base": "Elsenborn Ridge",
+    "gamemode": "Offensive",
+    "environment": "Night",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "elsenbornridge_skirmish_day",
+    "queryName": "DEV_N_Day_SKM",
+    "prettyName": "ELSENBORN RIDGE Skirmish",
+    "base": "Elsenborn Ridge",
+    "gamemode": "Skirmish",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "elsenbornridge_skirmish_morning",
+    "queryName": "DEV_N_Morning_SKM",
+    "prettyName": "ELSENBORN RIDGE Skirmish",
+    "base": "Elsenborn Ridge",
+    "gamemode": "Skirmish",
+    "environment": "Dawn",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "elsenbornridge_skirmish_night",
+    "queryName": "DEV_N_Night_SKM",
+    "prettyName": "ELSENBORN RIDGE Skirmish",
+    "base": "Elsenborn Ridge",
+    "gamemode": "Skirmish",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "elsenbornridge_warfare_day",
+    "queryName": "DEV_N",
+    "prettyName": "ELSENBORN RIDGE Warfare",
+    "base": "Elsenborn Ridge",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "elsenbornridge_warfare_morning",
+    "queryName": "DEV_N_Morning",
+    "prettyName": "ELSENBORN RIDGE Warfare",
+    "base": "Elsenborn Ridge",
+    "gamemode": "Warfare",
+    "environment": "Dawn",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "elsenbornridge_warfare_night",
+    "queryName": "DEV_N_Night",
+    "prettyName": "ELSENBORN RIDGE Warfare",
+    "base": "Elsenborn Ridge",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "foy_offensive_ger",
+    "queryName": "Foy",
+    "prettyName": "FOY Offensive",
+    "base": "Foy",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "foy_offensive_us",
+    "queryName": "Foy",
+    "prettyName": "FOY Offensive",
+    "base": "Foy",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "foy_warfare",
+    "queryName": "Foy",
+    "prettyName": "FOY Warfare",
+    "base": "Foy",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "foy_warfare_night",
+    "queryName": "Foy_N",
+    "prettyName": "FOY Warfare",
+    "base": "Foy",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "HIL_S_1944_Day_P_Skirmish",
+    "queryName": "DEV_H_Day_Skirmish",
+    "prettyName": "HILL 400 Skirmish",
+    "base": "Hill 400",
+    "gamemode": "Skirmish",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "HIL_S_1944_Dusk_P_Skirmish",
+    "queryName": "DEV_H_Dusk_Skirmish",
+    "prettyName": "HILL 400 Skirmish",
+    "base": "Hill 400",
+    "gamemode": "Skirmish",
+    "environment": "Dusk",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "hill400_offensive_ger",
+    "queryName": "Hill400",
+    "prettyName": "HILL 400 Offensive",
+    "base": "Hill 400",
+    "gamemode": "Offensive",
+    "environment": "Foggy",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "hill400_offensive_US**",
+    "queryName": "Hill400",
+    "prettyName": "HILL 400 Offensive",
+    "base": "Hill 400",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "hill400_warfare",
+    "queryName": "Hill400",
+    "prettyName": "HILL 400 Warfare",
+    "base": "Hill 400",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "hill400_warfare_night***",
+    "queryName": "Hill400_N",
+    "prettyName": "HILL 400 Warfare",
+    "base": "Hill 400",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "hurtgenforest_offensive_ger",
+    "queryName": "Hurtgen",
+    "prettyName": "H\u00c3\u0153RTGEN FOREST Offensive",
+    "base": "H\u00c3\u00bcrtgen Forest",
+    "gamemode": "Offensive",
+    "environment": "Foggy",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "hurtgenforest_offensive_US",
+    "queryName": "Hurtgen",
+    "prettyName": "H\u00c3\u0153RTGEN FOREST Offensive",
+    "base": "H\u00c3\u00bcrtgen Forest",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "hurtgenforest_warfare_V2",
+    "queryName": "Hurtgen",
+    "prettyName": "H\u00c3\u0153RTGEN FOREST Warfare",
+    "base": "H\u00c3\u00bcrtgen Forest",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "hurtgenforest_warfare_V2_night",
+    "queryName": "Hurtgen_N",
+    "prettyName": "H\u00c3\u0153RTGEN FOREST Warfare",
+    "base": "H\u00c3\u00bcrtgen Forest",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "kharkov_offensive_ger",
+    "queryName": "Kharkov",
+    "prettyName": "Kharkov Offensive",
+    "base": "Kharkov",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "kharkov_offensive_rus",
+    "queryName": "Kharkov",
+    "prettyName": "Kharkov Offensive",
+    "base": "Kharkov",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "RUS",
+    "enabled": true
+  },
+  {
+    "code": "kharkov_warfare",
+    "queryName": "Kharkov",
+    "prettyName": "Kharkov Warfare",
+    "base": "Kharkov",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "kharkov_warfare_night",
+    "queryName": "Kharkov_N",
+    "prettyName": "Kharkov Warfare",
+    "base": "Kharkov",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "kursk_offensive_ger",
+    "queryName": "Kursk",
+    "prettyName": "KURSK Offensive",
+    "base": "Kursk",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "kursk_offensive_rus",
+    "queryName": "Kursk",
+    "prettyName": "KURSK Offensive",
+    "base": "Kursk",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "RUS",
+    "enabled": true
+  },
+  {
+    "code": "kursk_warfare",
+    "queryName": "Kursk",
+    "prettyName": "KURSK Warfare",
+    "base": "Kursk",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "kursk_warfare_night",
+    "queryName": "Kursk_N",
+    "prettyName": "KURSK Warfare",
+    "base": "Kursk",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "mortain_offensiveger_day",
+    "queryName": "Mortain",
+    "prettyName": "MORTAIN Offensive",
+    "base": "Mortain",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "mortain_offensiveger_dusk",
+    "queryName": "Mortain_E",
+    "prettyName": "MORTAIN Offensive",
+    "base": "Mortain",
+    "gamemode": "Offensive",
+    "environment": "Dawn",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "mortain_offensiveger_overcast",
+    "queryName": "Mortain_O",
+    "prettyName": "MORTAIN Offensive",
+    "base": "Mortain",
+    "gamemode": "Offensive",
+    "environment": "Overcast",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "mortain_offensiveUS_day**",
+    "queryName": "Mortain",
+    "prettyName": "MORTAIN Offensive",
+    "base": "Mortain",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "mortain_offensiveUS_dusk",
+    "queryName": "Mortain_E",
+    "prettyName": "MORTAIN Offensive",
+    "base": "Mortain",
+    "gamemode": "Offensive",
+    "environment": "Dawn",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "mortain_offensiveUS_overcast**",
+    "queryName": "Mortain_O",
+    "prettyName": "MORTAIN Offensive",
+    "base": "Mortain",
+    "gamemode": "Offensive",
+    "environment": "Overcast",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "mortain_skirmish_day",
+    "queryName": "Mortain_SKM_Day",
+    "prettyName": "MORTAIN Skirmish",
+    "base": "Mortain",
+    "gamemode": "Skirmish",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "mortain_skirmish_dusk",
+    "queryName": "Mortain_SKM_Evening",
+    "prettyName": "MORTAIN Skirmish",
+    "base": "Mortain",
+    "gamemode": "Skirmish",
+    "environment": "Dawn",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "mortain_skirmish_overcast",
+    "queryName": "Mortain_SKM_Overcast",
+    "prettyName": "MORTAIN Skirmish",
+    "base": "Mortain",
+    "gamemode": "Skirmish",
+    "environment": "Overcast",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "mortain_warfare_day",
+    "queryName": "Mortain",
+    "prettyName": "MORTAIN Warfare",
+    "base": "Mortain",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "mortain_warfare_dusk",
+    "queryName": "Mortain_E",
+    "prettyName": "MORTAIN Warfare",
+    "base": "Mortain",
+    "gamemode": "Warfare",
+    "environment": "Dawn",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "mortain_warfare_overcast",
+    "queryName": "Mortain_O",
+    "prettyName": "MORTAIN Warfare",
+    "base": "Mortain",
+    "gamemode": "Warfare",
+    "environment": "Overcast",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "omahabeach_offensive_ger",
+    "queryName": "Omaha",
+    "prettyName": "OMAHA BEACH Offensive",
+    "base": "Omaha Beach",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "omahabeach_offensive_us",
+    "queryName": "Omaha",
+    "prettyName": "OMAHA BEACH Offensive",
+    "base": "Omaha Beach",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "omahabeach_warfare",
+    "queryName": "Omaha",
+    "prettyName": "OMAHA BEACH Warfare",
+    "base": "Omaha Beach",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "omahabeach_warfare_night",
+    "queryName": "Omaha_N",
+    "prettyName": "OMAHA BEACH Warfare",
+    "base": "Omaha Beach",
+    "gamemode": "Warfare",
+    "environment": "Dusk",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "PHL_L_1944_OffensiveGER",
+    "queryName": "PHL",
+    "prettyName": "PURPLE HEART LANE Offensive",
+    "base": "Purple Heart Lane",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "PHL_L_1944_OffensiveUS",
+    "queryName": "PHL",
+    "prettyName": "PURPLE HEART LANE Offensive",
+    "base": "Purple Heart Lane",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "PHL_L_1944_Warfare",
+    "queryName": "PHL",
+    "prettyName": "PURPLE HEART LANE Warfare",
+    "base": "Purple Heart Lane",
+    "gamemode": "Warfare",
+    "environment": "Rain",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "PHL_L_1944_Warfare_Night",
+    "queryName": "PHL_N",
+    "prettyName": "PURPLE HEART LANE Warfare",
+    "base": "Purple Heart Lane",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "PHL_S_1944_Rain_P_Skirmish",
+    "queryName": "DEV_K_Rain_SKM",
+    "prettyName": "PURPLE HEART LANE Skirmish",
+    "base": "Purple Heart Lane",
+    "gamemode": "Skirmish",
+    "environment": "Rain",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "PHL_S_1944_Morning_P_Skirmish",
+    "queryName": "DEV_K_Morning_SKM",
+    "prettyName": "PURPLE HEART LANE Skirmish",
+    "base": "Purple Heart Lane",
+    "gamemode": "Skirmish",
+    "environment": "Morning",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "PHL_S_1944_Night_P_Skirmish",
+    "queryName": "DEV_K_Night_SKM",
+    "prettyName": "PURPLE HEART LANE Skirmish",
+    "base": "Purple Heart Lane",
+    "gamemode": "Skirmish",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "remagen_offensive_ger",
+    "queryName": "Remagen",
+    "prettyName": "REMAGEN Offensive",
+    "base": "Remagen",
+    "gamemode": "Offensive",
+    "environment": "Foggy",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "remagen_offensive_us",
+    "queryName": "Remagen",
+    "prettyName": "REMAGEN Offensive",
+    "base": "Remagen",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "remagen_warfare",
+    "queryName": "Remagen",
+    "prettyName": "REMAGEN Warfare",
+    "base": "Remagen",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "remagen_warfare_night",
+    "queryName": "Remagen_N",
+    "prettyName": "REMAGEN Warfare",
+    "base": "Remagen",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "SMDM_S_1944_Day_P_Skirmish",
+    "queryName": "DEV_M_SKM",
+    "prettyName": "ST MARIE DU MONT Skirmish",
+    "base": "St. Marie Du Mont",
+    "gamemode": "Skirmish",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "SMDM_S_1944_Rain_P_Skirmish",
+    "queryName": "DEV_M_Rain_SKM",
+    "prettyName": "ST MARIE DU MONT Skirmish",
+    "base": "St. Marie Du Mont",
+    "gamemode": "Skirmish",
+    "environment": "Rain",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "SMDM_S_1944_Night_P_Skirmish",
+    "queryName": "DEV_M_Night_SKM",
+    "prettyName": "ST MARIE DU MONT Skirmish",
+    "base": "St. Marie Du Mont",
+    "gamemode": "Skirmish",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "SME_S_1944_Day_P_Skirmish",
+    "queryName": "DEV_I_DAY_SKM",
+    "prettyName": "SAINTE-M\u00c3\u02c6RE-\u00c3\u2030GLISE Skirmish",
+    "base": "St. Mere Eglise",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "SME_S_1944_Morning_P_Skirmish",
+    "queryName": "DEV_I_MORNING_SKM",
+    "prettyName": "SAINTE-M\u00c3\u02c6RE-\u00c3\u2030GLISE Skirmish",
+    "base": "St. Mere Eglise",
+    "gamemode": "Warfare",
+    "environment": "Dawn",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "SME_S_1944_Night_P_Skirmish",
+    "queryName": "DEV_I_NIGHT_SKM",
+    "prettyName": "SAINTE-M\u00c3\u02c6RE-\u00c3\u2030GLISE Skirmish",
+    "base": "St. Mere Eglise",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "stalingrad_offensive_ger",
+    "queryName": "Stalin",
+    "prettyName": "STALINGRAD Offensive",
+    "base": "Stalingrad",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "stalingrad_offensive_rus",
+    "queryName": "Stalin",
+    "prettyName": "STALINGRAD Offensive",
+    "base": "Stalingrad",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "RUS",
+    "enabled": true
+  },
+  {
+    "code": "stalingrad_warfare",
+    "queryName": "Stalin",
+    "prettyName": "STALINGRAD Warfare",
+    "base": "Stalingrad",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "stalingrad_warfare_night",
+    "queryName": "Stalin_N",
+    "prettyName": "STALINGRAD Warfare",
+    "base": "Stalingrad",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "stmariedumont_off_ger",
+    "queryName": "StMarie",
+    "prettyName": "ST MARIE DU MONT OFF",
+    "base": "St. Marie Du Mont",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "stmariedumont_off_us",
+    "queryName": "StMarie",
+    "prettyName": "ST MARIE DU MONT OFF",
+    "base": "St. Marie Du Mont",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "stmariedumont_warfare",
+    "queryName": "StMarie",
+    "prettyName": "ST MARIE DU MONT Warfare",
+    "base": "St. Marie Du Mont",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "stmariedumont_warfare_night",
+    "queryName": "StMarie_N",
+    "prettyName": "ST MARIE DU MONT Warfare",
+    "base": "St. Marie Du Mont",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "stmereeglise_offensive_ger",
+    "queryName": "SME",
+    "prettyName": "SAINTE-M\u00c3\u02c6RE-\u00c3\u2030GLISE Offensive",
+    "base": "St. Mere Eglise",
+    "gamemode": "Offensive",
+    "environment": "Dawn",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "stmereeglise_offensive_us",
+    "queryName": "SME",
+    "prettyName": "SAINTE-M\u00c3\u02c6RE-\u00c3\u2030GLISE Offensive",
+    "base": "St. Mere Eglise",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "stmereeglise_warfare",
+    "queryName": "SME",
+    "prettyName": "SAINTE-M\u00c3\u02c6RE-\u00c3\u2030GLISE Warfare",
+    "base": "St. Mere Eglise",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "stmereeglise_warfare_night",
+    "queryName": "SME_N",
+    "prettyName": "SAINTE-M\u00c3\u02c6RE-\u00c3\u2030GLISE Warfare",
+    "base": "St. Mere Eglise",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "tobruk_offensiveger_day",
+    "queryName": "DEV_O",
+    "prettyName": "TOBRUK Offensive",
+    "base": "Tobruk",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "DAK",
+    "enabled": true
+  },
+  {
+    "code": "tobruk_offensiveger_morning",
+    "queryName": "DEV_O_Morning",
+    "prettyName": "TOBRUK Offensive",
+    "base": "Tobruk",
+    "gamemode": "Offensive",
+    "environment": "Dawn",
+    "attackers": "DAK",
+    "enabled": true
+  },
+  {
+    "code": "tobruk_offensiveger_dusk",
+    "queryName": "DEV_O_Dusk",
+    "prettyName": "TOBRUK Offensive",
+    "base": "Tobruk",
+    "gamemode": "Offensive",
+    "environment": "Dusk",
+    "attackers": "DAK",
+    "enabled": true
+  },
+  {
+    "code": "tobruk_offensivebritish_day",
+    "queryName": "DEV_O",
+    "prettyName": "TOBRUK Offensive",
+    "base": "Tobruk",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "B8A",
+    "enabled": true
+  },
+  {
+    "code": "tobruk_offensivebritish_morning",
+    "queryName": "DEV_O_Morning",
+    "prettyName": "TOBRUK Offensive",
+    "base": "Tobruk",
+    "gamemode": "Offensive",
+    "environment": "Dawn",
+    "attackers": "B8A",
+    "enabled": true
+  },
+  {
+    "code": "tobruk_offensivebritish_dusk",
+    "queryName": "DEV_O_Dusk",
+    "prettyName": "TOBRUK Offensive",
+    "base": "Tobruk",
+    "gamemode": "Offensive",
+    "environment": "Dusk",
+    "attackers": "B8A",
+    "enabled": true
+  },
+  {
+    "code": "tobruk_skirmish_day",
+    "queryName": "DEV_O_DAY_SKM",
+    "prettyName": "TOBRUK Skirmish",
+    "base": "Tobruk",
+    "gamemode": "Skirmish",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "tobruk_skirmish_morning",
+    "queryName": "DEV_O_MORNING_SKM",
+    "prettyName": "TOBRUK Skirmish",
+    "base": "Tobruk",
+    "gamemode": "Skirmish",
+    "environment": "Dawn",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "tobruk_skirmish_dusk",
+    "queryName": "DEV_O_DUSK_SKM",
+    "prettyName": "TOBRUK Skirmish",
+    "base": "Tobruk",
+    "gamemode": "Skirmish",
+    "environment": "Dusk",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "tobruk_warfare_day",
+    "queryName": "DEV_O",
+    "prettyName": "TOBRUK Warfare",
+    "base": "Tobruk",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "tobruk_warfare_morning",
+    "queryName": "DEV_O_Morning",
+    "prettyName": "TOBRUK Warfare",
+    "base": "Tobruk",
+    "gamemode": "Warfare",
+    "environment": "Dawn",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "tobruk_warfare_dusk",
+    "queryName": "DEV_O_Dusk",
+    "prettyName": "TOBRUK Warfare",
+    "base": "Tobruk",
+    "gamemode": "Warfare",
+    "environment": "Dusk",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "utahbeach_offensive_ger",
+    "queryName": "Utah",
+    "prettyName": "UTAH BEACH Offensive",
+    "base": "Utah Beach",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "GER",
+    "enabled": true
+  },
+  {
+    "code": "utahbeach_offensive_us",
+    "queryName": "Utah",
+    "prettyName": "UTAH BEACH Offensive",
+    "base": "Utah Beach",
+    "gamemode": "Offensive",
+    "environment": "Day",
+    "attackers": "US",
+    "enabled": true
+  },
+  {
+    "code": "utahbeach_warfare",
+    "queryName": "Utah",
+    "prettyName": "UTAH BEACH Warfare",
+    "base": "Utah Beach",
+    "gamemode": "Warfare",
+    "environment": "Day",
+    "attackers": "",
+    "enabled": true
+  },
+  {
+    "code": "utahbeach_warfare_night",
+    "queryName": "Utah_N",
+    "prettyName": "UTAH BEACH Warfare",
+    "base": "Utah Beach",
+    "gamemode": "Warfare",
+    "environment": "Night",
+    "attackers": "",
     "enabled": true
   }
 ]
