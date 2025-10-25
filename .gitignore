@@ -1,2 +1,6 @@
 # Ignore local environment variables
 .env
+__pycache__/
+*.pyc
+tmp_*/
+tmp_pypi/

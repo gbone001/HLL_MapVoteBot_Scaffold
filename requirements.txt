@@ -3,3 +3,4 @@ discord.py==2.4.0
 apscheduler==3.10.4
 pytz==2024.1
 python-dateutil==2.9.0.post0
+aiohttp==3.10.10

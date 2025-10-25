@@ -30,8 +30,10 @@
   "settings": {
     "high_ping_threshold_ms": 180,
     "votekick_enabled": true,
-    "votekick_threshold": "60",
-    "votekick_reset": false,
+    "votekick_threshold_pairs": [
+      [0, 60]
+    ],
+    "reset_votekick_thresholds": false,
     "autobalance_enabled": true,
     "autobalance_threshold": 4,
     "team_switch_cooldown_minutes": 10,
@@ -40,6 +42,23 @@
 }
 ```
 The example above uses an APS `cron` trigger that fires every Friday at 18:00.
+
+`votekick_threshold_pairs` follows the CRCON API shape: each entry is `[player_count, votes_required]`.  
+If you prefer to type a quick string (e.g. `"0:60,60:70"`), the bot will coerce it into the pair list automatically when saving schedules.
+
+## Manual server commands
+Admins can adjust the same CRCON settings on demand via slash commands:
+
+- `/server_set_high_ping` — Set `high_ping_threshold_ms`.
+- `/server_set_votekick_enabled` — Toggle votekick on/off.
+- `/server_set_votekick_thresholds` — Update the votekick threshold table (accepts JSON or shorthand `player:votes` pairs).
+- `/server_reset_votekick_thresholds` — Restore the server default thresholds.
+- `/server_set_autobalance_enabled` — Toggle autobalance.
+- `/server_set_autobalance_threshold` — Update the allowed team size difference.
+- `/server_set_team_switch_cooldown` — Set `team_switch_cooldown_minutes`.
+- `/server_set_idle_autokick_time` — Set `idlekick_duration_minutes`.
+
+All commands require Discord administrator permissions and relay directly through the CRCON API.
 
 ## In-bot Scheduler
 - The bot starts an **AsyncIOScheduler** (AEST/AEDT timezone) and loads all entries from `schedules.json`.
