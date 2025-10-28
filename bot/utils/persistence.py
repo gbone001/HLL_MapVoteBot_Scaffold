@@ -3,7 +3,7 @@ import json
 import os
 from threading import Lock
 
-DATA_DIR = "data"
+DATA_DIR = "bot/data"
 _lock = Lock()
 
 def load_json(filename, default):
