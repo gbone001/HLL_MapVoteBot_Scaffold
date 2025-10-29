@@ -10,5 +10,8 @@
     "password": "satch",
     "api_base": "",
     "bearer_token": ""
+  },
+  "logging": {
+    "level": "INFO"
   }
 }

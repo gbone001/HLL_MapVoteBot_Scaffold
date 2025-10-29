@@ -1,6 +1,7 @@
 
 import asyncio
 import json
+import logging
 from discord import app_commands
 from discord.ext import commands
 from utils.persistence import load_json, save_json
@@ -12,6 +13,7 @@ from services.crcon_client import apply_server_settings
 
 import discord
 
+logger = logging.getLogger(__name__)
 
 def parse_threshold_pairs_input(raw: str | None):
     if raw is None:
@@ -43,15 +45,18 @@ def parse_threshold_pairs_input(raw: str | None):
     return pairs or None
 
 class MapVoteBot(commands.Bot):
-    async def setup_hook(self):
-        cfg = load_json("config.json", {})
-        self.cfg = cfg
-        self.guild_id = str(cfg.get("guild_id", ""))
-        self.vote_channel_id = str(cfg.get("vote_channel_id", ""))
+    def __init__(self, guild_id, vote_channel_id):
+        self.guild_id = guild_id
+        self.vote_channel_id = vote_channel_id
 
+        intents = discord.Intents.default()
+        intents.message_content = True
+        super().__init__(command_prefix="/", intents=intents)
+
+    async def setup_hook(self):
         @self.event
         async def on_ready():
-            print(f"Logged in as {self.user} (id={self.user.id})")
+            logger.info(f"Logged in as {self.user} (id={self.user.id})")
             if self.vote_channel_id and self.guild_id:
                 await ensure_persistent_messages(self, self.guild_id, self.vote_channel_id)
                 # Start watcher
@@ -62,6 +67,7 @@ class MapVoteBot(commands.Bot):
 
         @self.tree.command(name="vote_start", description="Start a map vote now")
         async def vote_start(interaction: discord.Interaction):
+            logger.info("Received command: vote_start")
             await start_new_vote(self, self.guild_id, self.vote_channel_id)
             await interaction.response.send_message("Started a new vote.", ephemeral=True)
 
@@ -81,6 +87,7 @@ class MapVoteBot(commands.Bot):
             team_switch_cooldown_minutes: int | None = None,
             idlekick_duration_minutes: int | None = None,
         ):
+            logger.info("Received command: schedule_set")
             scheds = load_json("schedules.json", [])
             row = next((x for x in scheds if x.get("pool") == pool and x.get("cron") == cron), None)
             if not row:
@@ -129,18 +136,21 @@ class MapVoteBot(commands.Bot):
         @app_commands.describe(ms="Ping threshold in milliseconds before players are kicked automatically")
         @app_commands.checks.has_permissions(administrator=True)
         async def server_set_high_ping(interaction: discord.Interaction, ms: app_commands.Range[int, 0]):
+            logger.info("Received command: server_set_high_ping")
             await _run_manual(interaction, "High ping threshold", {"high_ping_threshold_ms": int(ms)})
 
         @self.tree.command(name="server_set_votekick_enabled", description="Enable or disable votekick on the server")
         @app_commands.describe(value="Enable votekick (true) or disable it (false)")
         @app_commands.checks.has_permissions(administrator=True)
         async def server_set_votekick_enabled(interaction: discord.Interaction, value: bool):
+            logger.info("Received command: server_set_votekick_enabled")
             await _run_manual(interaction, "Votekick enabled", {"votekick_enabled": bool(value)})
 
         @self.tree.command(name="server_set_votekick_thresholds", description="Set the votekick threshold table")
         @app_commands.describe(pairs="JSON or shorthand string (e.g. \"0:60,60:70\")")
         @app_commands.checks.has_permissions(administrator=True)
         async def server_set_votekick_thresholds(interaction: discord.Interaction, pairs: str):
+            logger.info("Received command: server_set_votekick_thresholds")
             parsed = parse_threshold_pairs_input(pairs)
             if not parsed:
                 await interaction.response.send_message("Could not parse threshold pairs.", ephemeral=True)
@@ -150,30 +160,35 @@ class MapVoteBot(commands.Bot):
         @self.tree.command(name="server_reset_votekick_thresholds", description="Reset votekick thresholds to server defaults")
         @app_commands.checks.has_permissions(administrator=True)
         async def server_reset_votekick_thresholds(interaction: discord.Interaction):
+            logger.info("Received command: server_reset_votekick_thresholds")
             await _run_manual(interaction, "Reset votekick thresholds", {"reset_votekick_thresholds": True})
 
         @self.tree.command(name="server_set_autobalance_enabled", description="Turn server autobalance on or off")
         @app_commands.describe(value="Enable autobalance (true) or disable it (false)")
         @app_commands.checks.has_permissions(administrator=True)
         async def server_set_autobalance_enabled(interaction: discord.Interaction, value: bool):
+            logger.info("Received command: server_set_autobalance_enabled")
             await _run_manual(interaction, "Autobalance enabled", {"autobalance_enabled": bool(value)})
 
         @self.tree.command(name="server_set_autobalance_threshold", description="Set the autobalance team size differential")
         @app_commands.describe(diff="Maximum player difference before autobalance triggers")
         @app_commands.checks.has_permissions(administrator=True)
         async def server_set_autobalance_threshold(interaction: discord.Interaction, diff: app_commands.Range[int, 0]):
+            logger.info("Received command: server_set_autobalance_threshold")
             await _run_manual(interaction, "Autobalance threshold", {"autobalance_threshold": int(diff)})
 
         @self.tree.command(name="server_set_team_switch_cooldown", description="Set the team switch cooldown in minutes")
         @app_commands.describe(minutes="Cooldown before players can switch teams again")
         @app_commands.checks.has_permissions(administrator=True)
         async def server_set_team_switch_cooldown(interaction: discord.Interaction, minutes: app_commands.Range[int, 0]):
+            logger.info("Received command: server_set_team_switch_cooldown")
             await _run_manual(interaction, "Team switch cooldown", {"team_switch_cooldown_minutes": int(minutes)})
 
         @self.tree.command(name="server_set_idle_autokick_time", description="Set idle auto-kick duration in minutes")
         @app_commands.describe(minutes="Minutes players can remain idle before being kicked")
         @app_commands.checks.has_permissions(administrator=True)
         async def server_set_idle_autokick_time(interaction: discord.Interaction, minutes: app_commands.Range[int, 0]):
+            logger.info("Received command: server_set_idle_autokick_time")
             await _run_manual(interaction, "Idle autokick time", {"idlekick_duration_minutes": int(minutes)})
 
         await self.tree.sync()
