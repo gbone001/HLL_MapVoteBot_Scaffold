@@ -27,6 +27,7 @@
     "day_of_week": "fri"
   },
   "mapvote_cooldown": 3,
+  "mapvote_enabled": true,
   "settings": {
     "high_ping_threshold_ms": 180,
     "votekick_enabled": true,
@@ -43,6 +44,8 @@
 ```
 The example above uses an APS `cron` trigger that fires every Friday at 18:00.
 
+`mapvote_enabled` controls whether an interactive Discord map vote is started for this schedule (`true`) or whether the bot will pick a map immediately and push it to the server (`false`). Cooldown behaviour still applies when `mapvote_enabled` is `false`.
+
 `votekick_threshold_pairs` follows the CRCON API shape: each entry is `[player_count, votes_required]`.  
 If you prefer to type a quick string (e.g. `"0:60,60:70"`), the bot will coerce it into the pair list automatically when saving schedules.
 
@@ -57,6 +60,7 @@ Admins can adjust the same CRCON settings on demand via slash commands:
 - `/server_set_autobalance_threshold` — Update the allowed team size difference.
 - `/server_set_team_switch_cooldown` — Set `team_switch_cooldown_minutes`.
 - `/server_set_idle_autokick_time` — Set `idlekick_duration_minutes`.
+- `/mapvote_enabled` — Set the global default for whether scheduled jobs start an interactive Discord map vote (`true`) or immediately pick and push a map (`false`). Updates `config.json` and reloads scheduler jobs.
 
 All commands require Discord administrator permissions and relay directly through the CRCON API.
 

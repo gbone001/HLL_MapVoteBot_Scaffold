@@ -132,6 +132,22 @@ class MapVoteBot(commands.Bot):
             else:
                 await interaction.response.send_message(f"{label} updated.", ephemeral=True)
 
+            @self.tree.command(name="mapvote_enabled", description="Set global default for whether scheduled votes start an interactive mapvote")
+            @app_commands.describe(value="Enable interactive mapvote (true) or pick map immediately (false)")
+            @app_commands.checks.has_permissions(administrator=True)
+            async def mapvote_enabled(interaction: discord.Interaction, value: bool):
+                logger.info("Received command: mapvote_enabled")
+                cfg = load_json("config.json", {})
+                cfg["mapvote_enabled"] = bool(value)
+                save_json("config.json", cfg)
+                try:
+                    # reload scheduler jobs if present so new default applies for future schedule loads
+                    if hasattr(self, "vote_scheduler"):
+                        self.vote_scheduler.reload_jobs()
+                except Exception:
+                    pass
+                await interaction.response.send_message(f"Global mapvote_enabled set to {value}", ephemeral=True)
+
         @self.tree.command(name="server_set_high_ping", description="Set max ping autokick threshold (milliseconds)")
         @app_commands.describe(ms="Ping threshold in milliseconds before players are kicked automatically")
         @app_commands.checks.has_permissions(administrator=True)
