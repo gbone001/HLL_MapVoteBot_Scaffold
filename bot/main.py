@@ -4,7 +4,7 @@ import sys
 import asyncio
 import os
 
-from discord_bot import MapVoteBot
+from discord_bot import create
 
 def load_config():
     path = "bot/data/config.json"
@@ -25,10 +25,7 @@ async def amain():
     if not token:
         raise RuntimeError("DISCORD_TOKEN missing")
 
-    bot = MapVoteBot(
-        guild_id=config.get("guild_id"),
-        vote_channel_id=config.get("vote_channel_id")
-    )
+    bot = create(config)
     await bot.start(token)
 
 if __name__ == "__main__":
