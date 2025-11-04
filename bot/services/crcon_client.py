@@ -5,10 +5,7 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 import aiohttp
 
-from utils.persistence import load_json
-
 logger = logging.getLogger(__name__)
-
 
 class CrconApiError(RuntimeError):
     """Raised when the CRCON API cannot satisfy a request."""
@@ -16,15 +13,20 @@ class CrconApiError(RuntimeError):
 
 _CONFIG_CACHE: Optional[Dict[str, Any]] = None
 
+# TODO - this shouldn't be here. Need to inject a config wrapper that can reload it.
+def load_config():
+    path = "bot/data/config.json"
+    with open(path, "r") as f:
+        return json.load(f)
 
 def _crcon_settings() -> Dict[str, Any]:
     global _CONFIG_CACHE
     if _CONFIG_CACHE is None:
-        cfg = load_json("config.json", {})
+        cfg = load_config()
         _CONFIG_CACHE = cfg.get("crcon") or {}
     return _CONFIG_CACHE
 
-
+# TODO This should be injected.
 def _api_base() -> str:
     base = os.getenv("CRCON_API_BASE") or _crcon_settings().get("api_base") or ""
     base = base.strip()
@@ -32,11 +34,11 @@ def _api_base() -> str:
         base = base[:-1]
     return base
 
-
+# TODO This should be injected.
 def _api_token() -> str:
     return (os.getenv("CRCON_API_TOKEN") or _crcon_settings().get("bearer_token") or "").strip()
 
-
+# TODO This should be injected.
 def _is_dry_run() -> bool:
     env = os.getenv("CRCON_DRY_RUN")
     if env is not None:
@@ -44,7 +46,7 @@ def _is_dry_run() -> bool:
     settings = _crcon_settings()
     return bool(settings.get("dryrun"))
 
-
+# TODO This should be checked upon bootstrap.
 def _ensure_api_config() -> None:
     if not _api_base():
         raise CrconApiError("CRCON_API_BASE (or crcon.api_base) is not configured")
@@ -207,7 +209,7 @@ async def set_idle_autokick_time(minutes: int) -> None:
         raise ValueError("idle autokick time must be >= 0")
     await _post("/api/set_idle_autokick_time", {"minutes": int(minutes)})
 
-
+# TODO This is nasty. Needs refactoring and/or comments.
 def _coerce_threshold_pairs(raw: Any) -> List[Tuple[int, int]]:
     if raw is None:
         return []

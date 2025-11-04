@@ -1,13 +1,12 @@
-
-import asyncio
 import json
 import logging
 from discord import app_commands
 from discord.ext import commands
-from utils.persistence import load_json, save_json
-from services.channel_msgs import ensure_persistent_messages
-from services.game_watch import watch_game_starts
-from rounds import start_new_vote
+from services.pools import Pools
+from persistence.repository import Repository
+from services.posting import Posting
+from services.game_watch import GameStateNotifier
+from rounds import Rounds
 from services.ap_scheduler import VoteScheduler
 from services.crcon_client import apply_server_settings
 
@@ -44,31 +43,66 @@ def parse_threshold_pairs_input(raw: str | None):
         pairs.append([int(players), int(votes)])
     return pairs or None
 
+def create(config):
+    guild_id=config.get("guild_id"),
+    vote_channel_id=config.get("vote_channel_id")
+    vote_duration_minutes = int(config.get("vote_duration_minutes", 60))
+    mapvote_cooldown = int(config.get("mapvote_cooldown", 2))
+
+    repository = Repository()
+    posting = Posting(repository)
+    pools = Pools(repository)
+    rounds = Rounds(repository, pools, posting, vote_duration_minutes, mapvote_cooldown)
+    game_state_notifier = GameStateNotifier(repository)
+
+    return MapVoteBot(
+        guild_id=guild_id,
+        vote_channel_id=vote_channel_id,
+        repository=repository,
+        pools=pools,
+        posting=posting,
+        rounds=rounds,
+        game_state_notifier=game_state_notifier
+    )
+
 class MapVoteBot(commands.Bot):
-    def __init__(self, guild_id, vote_channel_id):
+    def __init__(self, guild_id, vote_channel_id, pools: Pools, posting: Posting, repository: Repository, game_state_notifier: GameStateNotifier, rounds: Rounds):
         self.guild_id = guild_id
         self.vote_channel_id = vote_channel_id
+        # TODO Only need this to pass it down to the VoteScheduler.
+        self.pools = pools
+        self.posting = posting
+        self.repository = repository
+        self.rounds = rounds
+        self.game_state_notifier = game_state_notifier
+        self.vote_scheduler = None
 
         intents = discord.Intents.default()
         intents.message_content = True
+
         super().__init__(command_prefix="/", intents=intents)
+
+    async def on_game_starts(self):
+        await self.rounds.start_new_vote(self, self.guild_id, self.vote_channel_id)
 
     async def setup_hook(self):
         @self.event
         async def on_ready():
             logger.info(f"Logged in as {self.user} (id={self.user.id})")
             if self.vote_channel_id and self.guild_id:
-                await ensure_persistent_messages(self, self.guild_id, self.vote_channel_id)
+                await self.posting.ensure_persistent_messages(self, self.guild_id, self.vote_channel_id)
                 # Start watcher
-                self.loop.create_task(watch_game_starts(self, self.guild_id, self.vote_channel_id))
+                self.game_state_notifier.add_handler(self.on_game_starts)
+                self.loop.create_task(self.game_state_notifier.watch_game_starts(self, self.guild_id, self.vote_channel_id))
                 # Start APScheduler
-                self.vote_scheduler = VoteScheduler(self, self.guild_id, self.vote_channel_id)
-                self.vote_scheduler.start()
+                # TODO Probably want to inject this once the bidirectional dependency has been resolved.
+                self.vote_scheduler = VoteScheduler(self, self. repository, self.pools, self.rounds, self.guild_id, self.vote_channel_id)
+                await self.vote_scheduler.start()
 
         @self.tree.command(name="vote_start", description="Start a map vote now")
         async def vote_start(interaction: discord.Interaction):
             logger.info("Received command: vote_start")
-            await start_new_vote(self, self.guild_id, self.vote_channel_id)
+            await self.rounds.start_new_vote(self, self.guild_id, self.vote_channel_id)
             await interaction.response.send_message("Started a new vote.", ephemeral=True)
 
         # /schedule_set to add/update schedules
@@ -88,7 +122,7 @@ class MapVoteBot(commands.Bot):
             idlekick_duration_minutes: int | None = None,
         ):
             logger.info("Received command: schedule_set")
-            scheds = load_json("schedules.json", [])
+            scheds = await self.repository.load_schedules()
             row = next((x for x in scheds if x.get("pool") == pool and x.get("cron") == cron), None)
             if not row:
                 row = {"pool": pool, "cron": cron}
@@ -117,9 +151,9 @@ class MapVoteBot(commands.Bot):
                 settings["reset_votekick_thresholds"] = bool(votekick_reset)
                 settings.pop("votekick_reset", None)
 
-            save_json("schedules.json", scheds)
+            await self.repository.save_schedules(scheds)
             try:
-                self.vote_scheduler.reload_jobs()
+                await self.vote_scheduler.reload_jobs()
             except Exception:
                 pass
             await interaction.response.send_message("Schedule saved and jobs reloaded.", ephemeral=True)

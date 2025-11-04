@@ -1,25 +1,46 @@
-
+import json
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
-from services.schedules import load_schedules
-from services.crcon_client import apply_server_settings, add_map_as_next_rotation
-from rounds import start_new_vote
-from utils.persistence import load_json, save_json
-from services.pools import pick_vote_options
+from services.crcon_client import apply_server_settings
+from rounds import Rounds
+from persistence.repository import Repository
+from services.pools import Pools
+from services.crcon_client import add_map_as_next_rotation
+
+
+# TODO This shouldn't be here. Need to inject a config wrapper that can reload the config.
+def _load_config():
+    path = "bot/data/config.json"
+    with open(path, "r") as f:
+        return json.load(f)
 
 class VoteScheduler:
-    def __init__(self, bot, guild_id: str, channel_id: str):
+    def __init__(self, bot, repository: Repository, pools: Pools, rounds: Rounds, guild_id: str, channel_id: str):
+        # TODO Should not depend on bot.
         self.bot = bot
+        self.repository = repository
+        self.pools = pools
+        self.rounds = rounds
         self.guild_id = guild_id
         self.channel_id = channel_id
+        # TODO This shouldn't be hardcoded to some specific timezone.
         self.scheduler = AsyncIOScheduler(timezone="Australia/Sydney")
         self.jobs = []
 
-    def start(self):
+    async def  _load_schedules(self):
+        cfg = _load_config()
+        default_cd = cfg.get("mapvote_cooldown", 2)
+        scheds = await self.repository.load_schedules()
+        for s in scheds:
+            s.setdefault("mapvote_cooldown", default_cd)
+            s.setdefault("mapvote_enabled", True)
+        return scheds
+
+    async def start(self):
         self.scheduler.start()
-        self.reload_jobs()
+        await self.reload_jobs()
         try:
-            cfg = load_json("config.json", {})
+            cfg = _load_config()
             interval = int(cfg.get("scheduler_reload_minutes", 60))
         except Exception:
             interval = 60
@@ -34,9 +55,9 @@ class VoteScheduler:
                 pass
         self.jobs.clear()
 
-    def reload_jobs(self):
+    async def reload_jobs(self):
         self.clear_jobs()
-        scheds = load_schedules()
+        scheds = await self._load_schedules()
         for idx, s in enumerate(scheds):
             cron = s.get("cron")
             if not cron:
@@ -52,7 +73,7 @@ class VoteScheduler:
 
                 # If mapvote is enabled, start an interactive vote as before
                 if mv_enabled:
-                    await start_new_vote(self.bot, self.guild_id, self.channel_id, extra={
+                    await self.rounds.start_new_vote(self.bot, self.guild_id, self.channel_id, extra={
                         "mapvote_cooldown": mv_cd,
                         "pool": pool or "default"
                     })
@@ -61,7 +82,7 @@ class VoteScheduler:
                 # Mapvote disabled: choose a map immediately (random selection respecting cooldowns)
                 # Reuse pools.pick_vote_options to get 1 candidate (it already respects cooldowns)
                 try:
-                    opts = pick_vote_options(count=1)
+                    opts = self.pools.pick_vote_options(count=1)
                     if not opts:
                         return
                     chosen = opts[0]["code"]
@@ -70,12 +91,12 @@ class VoteScheduler:
                     await add_map_as_next_rotation(chosen)
 
                     # Update cooldowns: decrement existing entries and set cooldown for chosen map
-                    cds = load_json("cooldowns.json", {})
+                    cds = await self.repository.load_cooldowns()
                     for k in list(cds.keys()):
                         cds[k] = max(0, int(cds.get(k, 0)) - 1)
-                    round_cd = mv_cd if mv_cd is not None else load_json("config.json", {}).get("mapvote_cooldown", 2)
+                    round_cd = mv_cd if mv_cd is not None else _load_config().get("mapvote_cooldown", 2)
                     cds[chosen] = int(round_cd)
-                    save_json("cooldowns.json", cds)
+                    await self.repository.save_cooldowns(cds)
                 except Exception:
                     # keep scheduler resilient; swallowing errors here mirrors existing behavior
                     pass

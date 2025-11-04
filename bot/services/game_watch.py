@@ -1,33 +1,40 @@
-
 import asyncio
-
-from utils.persistence import load_json, save_json
 from services.crcon_client import get_latest_match_start_marker, rcon_login
-from rounds import start_new_vote
+from persistence.repository import Repository
 
-async def watch_game_starts(bot, guild_id: str, channel_id: str):
-    chans = load_json("channels.json", [])
-    row = next((r for r in chans if r.get("guild_id") == guild_id and r.get("channel_id") == channel_id), None)
-    if not row:
-        return
+# TODO Probably want to change this so you can register handlers for different events, e.g. game start, game end.
+class GameStateNotifier:
+    def __init__(self, repository: Repository):
+        self.repository = repository
+        self.handlers = []
 
-    while True:
-        try:
-            await rcon_login(None, None, None)
-            session_marker = await get_latest_match_start_marker()
-            last = row.get("last_session_id")
+    def add_handler(self, handler):
+        self.handlers.append(handler)
 
-            if session_marker is None:
-                await asyncio.sleep(25)
-                continue
+    async def watch_game_starts(self, bot, guild_id: str, channel_id: str):
+        chans = await self.repository.load_channels()
+        row = next((r for r in chans if r.get("guild_id") == guild_id and r.get("channel_id") == channel_id), None)
+        if not row:
+            return
 
-            if last is None:
-                row["last_session_id"] = session_marker
-                save_json("channels.json", chans)
-            elif session_marker != last:
-                row["last_session_id"] = session_marker
-                save_json("channels.json", chans)
-                await start_new_vote(bot, guild_id, channel_id)
-        except Exception:
-            pass
-        await asyncio.sleep(25)
+        while True:
+            try:
+                await rcon_login(None, None, None)
+                session_marker = await get_latest_match_start_marker()
+                last = row.get("last_session_id")
+
+                if session_marker is None:
+                    await asyncio.sleep(25)
+                    continue
+
+                if last is None:
+                    row["last_session_id"] = session_marker
+                    await self.repository.save_channels(chans)
+                elif session_marker != last:
+                    row["last_session_id"] = session_marker
+                    await self.repository.save_channels(chans)
+                    for handler in self.handlers:
+                        await handler()
+            except Exception:
+                pass
+            await asyncio.sleep(25)
