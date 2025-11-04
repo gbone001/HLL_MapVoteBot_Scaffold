@@ -10,7 +10,7 @@ from services.crcon_client import add_map_as_next_rotation
 
 # TODO This shouldn't be here. Need to inject a config wrapper that can reload the config.
 def _load_config():
-    path = "bot/data/config.json"
+    path = "config.json"
     with open(path, "r") as f:
         return json.load(f)
 

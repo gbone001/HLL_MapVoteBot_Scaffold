@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from discord_bot import create
 
 def load_config():
-    path = "bot/data/config.json"
+    path = "config.json"
     with open(path, "r") as f:
         return json.load(f)
 

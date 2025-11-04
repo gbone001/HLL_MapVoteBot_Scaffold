@@ -15,7 +15,7 @@ _CONFIG_CACHE: Optional[Dict[str, Any]] = None
 
 # TODO - this shouldn't be here. Need to inject a config wrapper that can reload it.
 def load_config():
-    path = "bot/data/config.json"
+    path = "config.json"
     with open(path, "r") as f:
         return json.load(f)
 
