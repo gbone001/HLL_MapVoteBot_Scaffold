@@ -4,6 +4,7 @@ import sys
 import asyncio
 import os
 
+from dotenv import load_dotenv
 from discord_bot import create
 
 def load_config():
@@ -18,6 +19,8 @@ def init_logging(logging_config: dict):
     logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
 async def amain():
+    load_dotenv()
+
     config  = load_config()
     init_logging(config.get("logging"))
 
