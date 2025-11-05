@@ -1,11 +1,12 @@
 import asyncio
-from services.crcon_client import get_latest_match_start_marker, rcon_login
+from services.crcon_client import CrconClient
 from persistence.repository import Repository
 
 # TODO Probably want to change this so you can register handlers for different events, e.g. game start, game end.
 class GameStateNotifier:
-    def __init__(self, repository: Repository):
+    def __init__(self, repository: Repository, rcon_client: CrconClient):
         self.repository = repository
+        self.rcon_client = rcon_client
         self.handlers = []
 
     def add_handler(self, handler):
@@ -19,8 +20,7 @@ class GameStateNotifier:
 
         while True:
             try:
-                await rcon_login(None, None, None)
-                session_marker = await get_latest_match_start_marker()
+                session_marker = await self.rcon_client.get_latest_match_start_marker()
                 last = row.get("last_session_id")
 
                 if session_marker is None:

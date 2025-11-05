@@ -1,12 +1,10 @@
 import json
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
-from services.crcon_client import apply_server_settings
+from services.crcon_client import CrconClient
 from rounds import Rounds
 from persistence.repository import Repository
 from services.pools import Pools
-from services.crcon_client import add_map_as_next_rotation
-
 
 # TODO This shouldn't be here. Need to inject a config wrapper that can reload the config.
 def _load_config():
@@ -15,12 +13,13 @@ def _load_config():
         return json.load(f)
 
 class VoteScheduler:
-    def __init__(self, bot, repository: Repository, pools: Pools, rounds: Rounds, guild_id: str, channel_id: str):
+    def __init__(self, bot, repository: Repository, pools: Pools, rounds: Rounds, crcon_client: CrconClient, guild_id: str, channel_id: str):
         # TODO Should not depend on bot.
         self.bot = bot
         self.repository = repository
         self.pools = pools
         self.rounds = rounds
+        self.crcon_client = crcon_client
         self.guild_id = guild_id
         self.channel_id = channel_id
         # TODO This shouldn't be hardcoded to some specific timezone.
@@ -67,9 +66,13 @@ class VoteScheduler:
             except Exception:
                 continue
 
+            # TODO I reckon much of this logic should live in the bot.
+            # The scheduler would get a handler injected and call that handler with the respective schedule/settings.
+            # The bot (or a service it uses) would then be responsible for applying the settings and starting a vote (if required).
+            # This would remove the bidirectional dependency and drastically simplify the scheduler.
             async def job_wrapper(settings=s.get("settings", {}), mv_cd=s.get("mapvote_cooldown"), pool=s.get("pool"), mv_enabled=s.get("mapvote_enabled", True)):
                 # Apply server settings regardless
-                await apply_server_settings(settings or {})
+                await self.crcon_client.apply_server_settings(settings or {})
 
                 # If mapvote is enabled, start an interactive vote as before
                 if mv_enabled:
@@ -88,7 +91,7 @@ class VoteScheduler:
                     chosen = opts[0]["code"]
 
                     # Push chosen map to server rotation
-                    await add_map_as_next_rotation(chosen)
+                    await self.crcon_client.add_map_as_next_rotation(chosen)
 
                     # Update cooldowns: decrement existing entries and set cooldown for chosen map
                     cds = await self.repository.load_cooldowns()

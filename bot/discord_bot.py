@@ -2,13 +2,14 @@ import json
 import logging
 from discord import app_commands
 from discord.ext import commands
+from config import Config
 from services.pools import Pools
 from persistence.repository import Repository
 from services.posting import Posting
 from services.game_watch import GameStateNotifier
 from rounds import Rounds
 from services.ap_scheduler import VoteScheduler
-from services.crcon_client import apply_server_settings
+from services.crcon_client import CrconClient, create as create_crcon
 
 import discord
 
@@ -43,21 +44,23 @@ def parse_threshold_pairs_input(raw: str | None):
         pairs.append([int(players), int(votes)])
     return pairs or None
 
-def create(config):
+def create(config: Config):
     guild_id=config.get("guild_id"),
     vote_channel_id=config.get("vote_channel_id")
     vote_duration_minutes = int(config.get("vote_duration_minutes", 60))
     mapvote_cooldown = int(config.get("mapvote_cooldown", 2))
 
     repository = Repository()
-    posting = Posting(repository)
+    crcon_client = create_crcon(config)
+    posting = Posting(repository, crcon_client)
     pools = Pools(repository)
     rounds = Rounds(repository, pools, posting, vote_duration_minutes, mapvote_cooldown)
-    game_state_notifier = GameStateNotifier(repository)
+    game_state_notifier = GameStateNotifier(repository, crcon_client)
 
     return MapVoteBot(
         guild_id=guild_id,
         vote_channel_id=vote_channel_id,
+        crcon_client = crcon_client,
         repository=repository,
         pools=pools,
         posting=posting,
@@ -66,9 +69,10 @@ def create(config):
     )
 
 class MapVoteBot(commands.Bot):
-    def __init__(self, guild_id, vote_channel_id, pools: Pools, posting: Posting, repository: Repository, game_state_notifier: GameStateNotifier, rounds: Rounds):
+    def __init__(self, guild_id, vote_channel_id, crcon_client: CrconClient, pools: Pools, posting: Posting, repository: Repository, game_state_notifier: GameStateNotifier, rounds: Rounds):
         self.guild_id = guild_id
         self.vote_channel_id = vote_channel_id
+        self.crcon_client = crcon_client
         # TODO Only need this to pass it down to the VoteScheduler.
         self.pools = pools
         self.posting = posting
@@ -76,6 +80,7 @@ class MapVoteBot(commands.Bot):
         self.rounds = rounds
         self.game_state_notifier = game_state_notifier
         self.vote_scheduler = None
+        self.mapvote_enabled = True
 
         intents = discord.Intents.default()
         intents.message_content = True
@@ -96,14 +101,17 @@ class MapVoteBot(commands.Bot):
                 self.loop.create_task(self.game_state_notifier.watch_game_starts(self, self.guild_id, self.vote_channel_id))
                 # Start APScheduler
                 # TODO Probably want to inject this once the bidirectional dependency has been resolved.
-                self.vote_scheduler = VoteScheduler(self, self. repository, self.pools, self.rounds, self.guild_id, self.vote_channel_id)
+                self.vote_scheduler = VoteScheduler(self, self. repository, self.pools, self.rounds, self.crcon_client, self.guild_id, self.vote_channel_id)
                 await self.vote_scheduler.start()
 
         @self.tree.command(name="vote_start", description="Start a map vote now")
         async def vote_start(interaction: discord.Interaction):
             logger.info("Received command: vote_start")
-            await self.rounds.start_new_vote(self, self.guild_id, self.vote_channel_id)
-            await interaction.response.send_message("Started a new vote.", ephemeral=True)
+            if self.mapvote_enabled:
+                await self.rounds.start_new_vote(self, self.guild_id, self.vote_channel_id)
+                await interaction.response.send_message("Started a new vote.", ephemeral=True)
+            else:
+                logger.info("Map votes disabled, not starting a vote")
 
         # /schedule_set to add/update schedules
         @self.tree.command(name="schedule_set", description="Create or update a scheduled vote")
@@ -160,7 +168,7 @@ class MapVoteBot(commands.Bot):
 
         async def _run_manual(interaction: discord.Interaction, label: str, payload: dict):
             try:
-                await apply_server_settings(payload)
+                await self.crcon_client.apply_server_settings(payload)
             except Exception as exc:
                 await interaction.response.send_message(f"{label} failed: {exc}", ephemeral=True)
             else:
@@ -170,16 +178,7 @@ class MapVoteBot(commands.Bot):
             @app_commands.describe(value="Enable interactive mapvote (true) or pick map immediately (false)")
             @app_commands.checks.has_permissions(administrator=True)
             async def mapvote_enabled(interaction: discord.Interaction, value: bool):
-                logger.info("Received command: mapvote_enabled")
-                cfg = load_json("config.json", {})
-                cfg["mapvote_enabled"] = bool(value)
-                save_json("config.json", cfg)
-                try:
-                    # reload scheduler jobs if present so new default applies for future schedule loads
-                    if hasattr(self, "vote_scheduler"):
-                        self.vote_scheduler.reload_jobs()
-                except Exception:
-                    pass
+                self.mapvote_enabled = value
                 await interaction.response.send_message(f"Global mapvote_enabled set to {value}", ephemeral=True)
 
         @self.tree.command(name="server_set_high_ping", description="Set max ping autokick threshold (milliseconds)")

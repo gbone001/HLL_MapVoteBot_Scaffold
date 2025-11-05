@@ -1,9 +1,17 @@
 import discord
+import json
 from discord import Embed
 from persistence.repository import Repository
 from utils.maps import base_map_code, normalize_cooldowns
 from services.voting import determine_winner
-from services.crcon_client import add_map_as_next_rotation
+from services.crcon_client import CrconClient
+
+
+# TODO This shouldn't be here. Need to figure out why config is even loaded below.
+def _load_config():
+    path = "config.json"
+    with open(path, "r") as f:
+        return json.load(f)
 
 def _empty_last_vote_embed():
     e = Embed(title="Last Vote — Summary", description="No completed votes yet.")
@@ -14,8 +22,9 @@ def _placeholder_vote_embed():
     return e
 
 class Posting:
-    def __init__(self, repository: Repository):
+    def __init__(self, repository: Repository, rcon_client: CrconClient):
         self.repository = repository
+        self.rcon_client = rcon_client
 
     async def update_channel_row(self, guild_id: str, channel_id: str, **fields):
         chans = await self.repository.load_channels()
@@ -88,14 +97,14 @@ class Posting:
 
         winner_map, detail = determine_winner(r, return_detail=True)
 
-        await add_map_as_next_rotation(winner_map)
+        await self.rcon_client.add_map_as_next_rotation(winner_map)
 
-        cooldowns = normalize_cooldowns(self.repository.load_cooldowns())
+        cooldowns = normalize_cooldowns(await self.repository.load_cooldowns())
         for k in list(cooldowns.keys()):
             cooldowns[k] = max(0, int(cooldowns[k]) - 1)
-        round_cd = r.get("meta", {}).get("mapvote_cooldown", load_json("config.json", {}).get("mapvote_cooldown", 2))
+        round_cd = r.get("meta", {}).get("mapvote_cooldown", _load_config()("config.json", {}).get("mapvote_cooldown", 2))
         cooldowns[base_map_code(winner_map)] = int(round_cd)
-        self.repository.save_cooldowns(cooldowns)
+        await self.repository.save_cooldowns(cooldowns)
 
         r["status"] = "pushed"
         await self.repository.save_votes(votes)
