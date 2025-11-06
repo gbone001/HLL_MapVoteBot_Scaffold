@@ -1,0 +1,10 @@
+pytest
+pytest-asyncio
+freezegun
+httpx
+respx
+jsonschema
+pytest-cov
+mypy
+ruff
+black
