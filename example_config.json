@@ -9,7 +9,8 @@
     "port": 28016,
     "password": "satch",
     "api_base": "",
-    "bearer_token": ""
+    "bearer_token": "",
+    "dryrun": false
   },
   "logging": {
     "level": "INFO"

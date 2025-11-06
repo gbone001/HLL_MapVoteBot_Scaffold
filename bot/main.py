@@ -1,16 +1,15 @@
-import json
 import logging
 import sys
 import asyncio
 import os
 
 from dotenv import load_dotenv
+from config import Config
 from discord_bot import create
 
 def load_config():
     path = "config.json"
-    with open(path, "r") as f:
-        return json.load(f)
+    return Config(path)
 
 def init_logging(logging_config: dict):
     level = logging_config.get("level") or "INFO"
