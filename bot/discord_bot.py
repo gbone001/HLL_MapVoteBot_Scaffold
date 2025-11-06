@@ -96,6 +96,14 @@ class MapVoteBot(commands.Bot):
             logger.info(f"Logged in as {self.user} (id={self.user.id})")
             if self.vote_channel_id and self.guild_id:
                 await self.posting.ensure_persistent_messages(self, self.guild_id, self.vote_channel_id)
+                self.loop.create_task(
+                    self.posting.periodic_management_refresh(
+                        self,
+                        self.guild_id,
+                        self.vote_channel_id,
+                        interval_seconds=60,
+                    )
+                )
                 # Start watcher
                 self.game_state_notifier.add_handler(self.on_game_starts)
                 self.loop.create_task(self.game_state_notifier.watch_game_starts(self, self.guild_id, self.vote_channel_id))

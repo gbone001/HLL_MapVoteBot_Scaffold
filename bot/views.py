@@ -3,6 +3,7 @@ import discord
 from discord.ui import View, Button
 from persistence.repository import Repository
 
+
 class VoteButton(Button):
     def __init__(self, repository: Repository, round_id: int, index: int, label: str):
         super().__init__(style=discord.ButtonStyle.primary, label=f"{index}. {label}", custom_id=f"vote:{round_id}:{index}")
@@ -22,8 +23,38 @@ class VoteButton(Button):
         await self.repository.save_votes(votes)
         await interaction.response.defer()
 
+
 class VoteView(View):
     def __init__(self, repository: Repository, round_id: int, options: list[dict]):
         super().__init__(timeout=None)
         for opt in options:
             self.add_item(VoteButton(repository, round_id, opt["index"], opt["label"]))
+
+
+class ManagementControlView(View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+    @discord.ui.button(
+        label="See Current Schedule",
+        style=discord.ButtonStyle.secondary,
+        custom_id="management:see_schedule",
+    )
+    async def see_current_schedule(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_message("Schedule view is coming soon.", ephemeral=True)
+
+    @discord.ui.button(
+        label="Create Map Pool",
+        style=discord.ButtonStyle.secondary,
+        custom_id="management:create_map_pool",
+    )
+    async def create_map_pool(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_message("Map pool tools are coming soon.", ephemeral=True)
+
+    @discord.ui.button(
+        label="Turn Scheduling On/Off",
+        style=discord.ButtonStyle.secondary,
+        custom_id="management:toggle_scheduling",
+    )
+    async def toggle_scheduling(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_message("Scheduling toggle is coming soon.", ephemeral=True)
