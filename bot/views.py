@@ -44,7 +44,15 @@ class ManagementControlView(View):
         await interaction.response.send_message("Schedule view is coming soon.", ephemeral=True)
 
     @discord.ui.button(
-        label="Create Map Pool",
+        label="Create New Schedule",
+        style=discord.ButtonStyle.secondary,
+        custom_id="management:create_schedule",
+    )
+    async def create_new_schedule(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_message("Schedule creation is coming soon.", ephemeral=True)
+
+    @discord.ui.button(
+        label="Create / Update Map Pool",
         style=discord.ButtonStyle.secondary,
         custom_id="management:create_map_pool",
     )

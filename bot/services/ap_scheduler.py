@@ -29,10 +29,19 @@ class VoteScheduler:
     async def  _load_schedules(self):
         cfg = _load_config()
         default_cd = cfg.get("mapvote_cooldown", 2)
+        try:
+            default_min_votes = max(0, int(cfg.get("minimum_votes", 0) or 0))
+        except (TypeError, ValueError):
+            default_min_votes = 0
         scheds = await self.repository.load_schedules()
         for s in scheds:
             s.setdefault("mapvote_cooldown", default_cd)
             s.setdefault("mapvote_enabled", True)
+            s.setdefault("minimum_votes", default_min_votes)
+            try:
+                s["minimum_votes"] = max(0, int(s.get("minimum_votes", 0) or 0))
+            except (TypeError, ValueError):
+                s["minimum_votes"] = default_min_votes
         return scheds
 
     async def start(self):
@@ -70,7 +79,7 @@ class VoteScheduler:
             # The scheduler would get a handler injected and call that handler with the respective schedule/settings.
             # The bot (or a service it uses) would then be responsible for applying the settings and starting a vote (if required).
             # This would remove the bidirectional dependency and drastically simplify the scheduler.
-            async def job_wrapper(settings=s.get("settings", {}), mv_cd=s.get("mapvote_cooldown"), pool=s.get("pool"), mv_enabled=s.get("mapvote_enabled", True)):
+            async def job_wrapper(settings=s.get("settings", {}), mv_cd=s.get("mapvote_cooldown"), pool=s.get("pool"), mv_enabled=s.get("mapvote_enabled", True), min_votes=s.get("minimum_votes")):
                 # Apply server settings regardless
                 await self.crcon_client.apply_server_settings(settings or {})
 
@@ -78,7 +87,8 @@ class VoteScheduler:
                 if mv_enabled:
                     await self.rounds.start_new_vote(self.bot, self.guild_id, self.channel_id, extra={
                         "mapvote_cooldown": mv_cd,
-                        "pool": pool or "default"
+                        "pool": pool or "default",
+                        "minimum_votes": min_votes,
                     })
                     return
 

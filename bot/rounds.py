@@ -40,6 +40,12 @@ class Rounds:
         votes = await self.repository.load_votes()
         rid = _next_round_id()
         ends_at = sydney_now() + dt.timedelta(minutes=self.vote_duration_minutes)
+        min_votes = extra.get("minimum_votes")
+        try:
+            min_votes = max(0, int(min_votes))
+        except (TypeError, ValueError):
+            min_votes = 0
+
         round_rec = {
             "id": rid,
             "pool": extra.get("pool", "default"),
@@ -48,7 +54,8 @@ class Rounds:
             "ends_at": ends_at.isoformat(),
             "status": "open",
             "meta": {
-                "mapvote_cooldown": extra.get("mapvote_cooldown", self.mapvote_cooldown)
+                "mapvote_cooldown": extra.get("mapvote_cooldown", self.mapvote_cooldown),
+                "minimum_votes": min_votes,
             },
             "options": [
                 {"index": i + 1, "map": o["code"], "label": o["label"], "votes": 0}

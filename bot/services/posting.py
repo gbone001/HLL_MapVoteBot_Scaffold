@@ -396,6 +396,12 @@ class Posting:
             lines.append(f"• **{opt['label']}** — {opt['votes']} votes")
         if detail["reason"] == "no_votes":
             lines.append(f"\n_No votes cast. Randomly selected **{detail['chosen_label']}**._")
+        elif detail["reason"] == "below_threshold":
+            required = detail.get("required")
+            total = detail.get("total")
+            lines.append(
+                f"\n_Only {total} votes cast (need {required}). Randomly selected **{detail['chosen_label']}**._"
+            )
         elif detail["reason"] == "tie":
             lines.append(f"\n_Tie detected. Randomly selected **{detail['chosen_label']}** among: {', '.join(detail['tied_labels'])}._")
         else:

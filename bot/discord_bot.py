@@ -123,11 +123,15 @@ class MapVoteBot(commands.Bot):
 
         # /schedule_set to add/update schedules
         @self.tree.command(name="schedule_set", description="Create or update a scheduled vote")
+        @app_commands.describe(
+            minimum_votes="Minimum ballots required before honoring the vote result"
+        )
         async def schedule_set(
             interaction: discord.Interaction,
             pool: str,
             cron: str,
             mapvote_cooldown: int | None = None,
+            minimum_votes: int | None = None,
             high_ping_threshold_ms: int | None = None,
             votekick_enabled: bool | None = None,
             votekick_threshold: str | None = None,
@@ -145,6 +149,8 @@ class MapVoteBot(commands.Bot):
                 scheds.append(row)
             if mapvote_cooldown is not None:
                 row["mapvote_cooldown"] = int(mapvote_cooldown)
+            if minimum_votes is not None:
+                row["minimum_votes"] = max(0, int(minimum_votes))
 
             settings = row.setdefault("settings", {})
 
