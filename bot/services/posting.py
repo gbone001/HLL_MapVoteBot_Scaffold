@@ -1,6 +1,5 @@
 import asyncio
 import discord
-import json
 import logging
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
@@ -17,12 +16,6 @@ from views import ManagementControlView
 logger = logging.getLogger(__name__)
 
 
-# TODO This shouldn't be here. Need to figure out why config is even loaded below.
-def _load_config():
-    path = "config.json"
-    with open(path, "r") as f:
-        return json.load(f)
-
 def _empty_last_vote_embed():
     e = Embed(title="Last Vote — Summary", description="No completed votes yet.")
     return e
@@ -32,9 +25,10 @@ def _placeholder_vote_embed():
     return e
 
 class Posting:
-    def __init__(self, repository: Repository, rcon_client: CrconClient):
+    def __init__(self, repository: Repository, rcon_client: CrconClient, *, default_mapvote_cooldown: int):
         self.repository = repository
         self.rcon_client = rcon_client
+        self.default_mapvote_cooldown = max(0, int(default_mapvote_cooldown))
         self._maps_by_code: Optional[Dict[str, dict]] = None
         self._maps_by_pretty: Optional[Dict[str, dict]] = None
         self._last_status_snapshot: Optional[Dict[str, Any]] = None
@@ -200,7 +194,8 @@ class Posting:
             "Click the buttons below to manage the map pool schedule and voting",
             "",
             "**Connected Server**",
-            f"{status.get('server_name')} | Current Map {status.get('map_label')} (map type: {status.get('map_mode')}) | Allied: {status.get('allied')} | Axis: {status.get('axis')} | Time: {status.get('time_remaining')}",
+            f"{status.get('server_name')} | Current Map {status.get('map_label')} (map type: {status.get('map_mode')}) | Allied: {status.get('allied')} | Axis: {status.get('axis')} | Time: {status.get('time_remaining')}",
+
             f"Updated at {updated_str}",
             "",
             "Buttons stay active across restarts.",
@@ -383,7 +378,7 @@ class Posting:
         cooldowns = normalize_cooldowns(await self.repository.load_cooldowns())
         for k in list(cooldowns.keys()):
             cooldowns[k] = max(0, int(cooldowns[k]) - 1)
-        round_cd = r.get("meta", {}).get("mapvote_cooldown", _load_config()("config.json", {}).get("mapvote_cooldown", 2))
+        round_cd = r.get("meta", {}).get("mapvote_cooldown", self.default_mapvote_cooldown)
         cooldowns[base_map_code(winner_map)] = int(round_cd)
         await self.repository.save_cooldowns(cooldowns)
 

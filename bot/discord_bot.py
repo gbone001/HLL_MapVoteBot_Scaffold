@@ -52,7 +52,7 @@ def create(config: Config):
 
     repository = Repository()
     crcon_client = create_crcon(config)
-    posting = Posting(repository, crcon_client)
+    posting = Posting(repository, crcon_client, default_mapvote_cooldown=mapvote_cooldown)
     pools = Pools(repository)
     rounds = Rounds(repository, pools, posting, vote_duration_minutes, mapvote_cooldown)
     game_state_notifier = GameStateNotifier(repository, crcon_client)
