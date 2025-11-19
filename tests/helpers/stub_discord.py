@@ -34,11 +34,27 @@ class StubMessage:
         self.edits.append({"content": content, "kwargs": kwargs})
 
 
+class StubInteractionResponse:
+    def __init__(self, interaction: "StubInteraction") -> None:
+        self.interaction = interaction
+        self.sent_messages: List[dict] = []
+        self.deferred: bool = False
+
+    async def send_message(self, content: str = "", ephemeral: bool = False, **kwargs: Any) -> None:
+        payload = {"content": content, "ephemeral": ephemeral, "kwargs": kwargs}
+        self.sent_messages.append(payload)
+        self.interaction.responses.append(payload)
+
+    async def defer(self) -> None:
+        self.deferred = True
+
+
 class StubInteraction:
     def __init__(self, user: StubUser | None = None, channel: StubChannel | None = None) -> None:
         self.user = user or StubUser()
         self.channel = channel or StubChannel()
         self.responses: List[dict] = []
+        self.response = StubInteractionResponse(self)
 
     async def response_send_message(self, content: str, ephemeral: bool = False, **kwargs: Any) -> None:
-        self.responses.append({"content": content, "ephemeral": ephemeral, "kwargs": kwargs})
+        await self.response.send_message(content=content, ephemeral=ephemeral, **kwargs)
