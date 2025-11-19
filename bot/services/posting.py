@@ -9,7 +9,7 @@ from discord import Embed
 from persistence.repository import Repository
 from utils.maps import base_map_code, normalize_cooldowns
 from services.voting import determine_winner
-from services.crcon_client import CrconClient
+from services.game_server_client import GameServerClient
 from views import ManagementControlView
 
 
@@ -25,7 +25,7 @@ def _placeholder_vote_embed():
     return e
 
 class Posting:
-    def __init__(self, repository: Repository, rcon_client: CrconClient, *, default_mapvote_cooldown: int):
+    def __init__(self, repository: Repository, rcon_client: GameServerClient, *, default_mapvote_cooldown: int):
         self.repository = repository
         self.rcon_client = rcon_client
         self.default_mapvote_cooldown = max(0, int(default_mapvote_cooldown))

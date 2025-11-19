@@ -1,7 +1,7 @@
 import json
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
-from services.crcon_client import CrconClient
+from services.game_server_client import GameServerClient
 from rounds import Rounds
 from persistence.repository import Repository
 from services.pools import Pools
@@ -13,7 +13,7 @@ def _load_config():
         return json.load(f)
 
 class VoteScheduler:
-    def __init__(self, bot, repository: Repository, pools: Pools, rounds: Rounds, crcon_client: CrconClient, guild_id: str, channel_id: str):
+    def __init__(self, bot, repository: Repository, pools: Pools, rounds: Rounds, crcon_client: GameServerClient, guild_id: str, channel_id: str):
         # TODO Should not depend on bot.
         self.bot = bot
         self.repository = repository

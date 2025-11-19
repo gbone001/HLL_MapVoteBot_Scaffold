@@ -9,7 +9,8 @@ from services.posting import Posting
 from services.game_watch import GameStateNotifier
 from rounds import Rounds
 from services.ap_scheduler import VoteScheduler
-from services.crcon_client import CrconClient, create as create_crcon
+from services.crcon_client import create as create_crcon
+from services.game_server_client import GameServerClient
 
 import discord
 
@@ -51,7 +52,7 @@ def create(config: Config):
     mapvote_cooldown = int(config.get("mapvote_cooldown", 2))
 
     repository = Repository()
-    crcon_client = create_crcon(config)
+    crcon_client: GameServerClient = create_crcon(config)
     posting = Posting(repository, crcon_client, default_mapvote_cooldown=mapvote_cooldown)
     pools = Pools(repository)
     rounds = Rounds(repository, pools, posting, vote_duration_minutes, mapvote_cooldown)
@@ -69,7 +70,7 @@ def create(config: Config):
     )
 
 class MapVoteBot(commands.Bot):
-    def __init__(self, guild_id, vote_channel_id, crcon_client: CrconClient, pools: Pools, posting: Posting, repository: Repository, game_state_notifier: GameStateNotifier, rounds: Rounds):
+    def __init__(self, guild_id, vote_channel_id, crcon_client: GameServerClient, pools: Pools, posting: Posting, repository: Repository, game_state_notifier: GameStateNotifier, rounds: Rounds):
         self.guild_id = guild_id
         self.vote_channel_id = vote_channel_id
         self.crcon_client = crcon_client

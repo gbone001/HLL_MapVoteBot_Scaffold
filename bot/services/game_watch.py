@@ -1,10 +1,10 @@
 import asyncio
-from services.crcon_client import CrconClient
+from services.game_server_client import GameServerClient
 from persistence.repository import Repository
 
 # TODO Probably want to change this so you can register handlers for different events, e.g. game start, game end.
 class GameStateNotifier:
-    def __init__(self, repository: Repository, rcon_client: CrconClient):
+    def __init__(self, repository: Repository, rcon_client: GameServerClient):
         self.repository = repository
         self.rcon_client = rcon_client
         self.handlers = []

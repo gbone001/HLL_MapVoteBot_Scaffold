@@ -5,13 +5,15 @@ import os
 from config import Config
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
+from services.game_server_client import GameServerClient
+
 
 logger = logging.getLogger(__name__)
 
 class CrconApiError(RuntimeError):
     """Raised when the CRCON API cannot satisfy a request."""
 
-def create(config: Config):
+def create(config: Config) -> GameServerClient:
     api_base = (os.getenv("CRCON_API_BASE") or config.get("crcon").get("api_base") or "").strip()
     if not api_base:
         raise RuntimeError("CRCON_API_BASE (or crcon.api_base) is not configured")
@@ -30,7 +32,7 @@ def create(config: Config):
     return CrconClient(api_base, api_token, dry_run)
 
 
-class CrconClient:
+class CrconClient(GameServerClient):
     def __init__(self, api_base: str, bearer_token: str, dry_run: bool):
         if api_base.endswith("/"):
             self.api_base = api_base[:-1]
