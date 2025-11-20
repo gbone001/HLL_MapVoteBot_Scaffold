@@ -13,6 +13,7 @@ This repository is a lightweight Discord bot that runs scheduled and manual map 
   - Voting flow: `bot/rounds.py` builds the vote options using `services/pools.py` (which consults cooldowns and pools), persists a `votes.json` round object, and updates two pinned messages via `services/channel_msgs.py` and `services/posting.py`.
   - Closing a round: `services/posting.py::close_round_and_push` tallies votes using `services/voting.py::determine_winner`, updates cooldowns (`cooldowns.json`) and calls `services/crcon_client.py::add_map_as_next_rotation` to push the winner to the game server.
   - RCON client: `bot/services/crcon_client.py` currently contains stubs for v2 handshake and calls; treat it as a required integration point — changes here affect `game_watch.py`, `ap_scheduler.py` and `posting.py`.
+  - Server command channel: whenever you need to send commands to the game server, route them through the HTTP API first and only fall back to other transports if that API path is unavailable.
 
 - Key files to reference when making changes
   - `bot/data/config.json` — runtime config (guild_id, vote_channel_id, apscheduler settings). Used by `discord_bot.py` and `ap_scheduler.py`.
