@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any, List
 
 import pytest
+
 from bot.services.pools import Pools
 
 
@@ -23,7 +24,9 @@ class StubRepository:
 
 
 @pytest.mark.asyncio
-async def test_pick_vote_options_prefers_active_pool_and_respects_cooldowns(monkeypatch: pytest.MonkeyPatch):
+async def test_pick_vote_options_prefers_active_pool_and_respects_cooldowns(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     maps = [
         {"code": "FOY_WARFARE", "name": "Foy Warfare", "enabled": True},
         {"code": "FOY_NIGHT", "name": "Foy Night", "enabled": True},
@@ -48,7 +51,9 @@ async def test_pick_vote_options_prefers_active_pool_and_respects_cooldowns(monk
 
 
 @pytest.mark.asyncio
-async def test_pick_vote_options_falls_back_to_enabled_maps_when_no_active_pool(monkeypatch: pytest.MonkeyPatch):
+async def test_pick_vote_options_falls_back_to_enabled_maps_when_no_active_pool(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     maps = [
         {"code": "SAINT_MERE", "name": "Sainte Mere", "enabled": True},
         {"code": "OMAHA", "name": "Omaha", "enabled": False},
@@ -67,4 +72,3 @@ async def test_pick_vote_options_falls_back_to_enabled_maps_when_no_active_pool(
     opts = await service.pick_vote_options(count=2)
 
     assert [o["code"] for o in opts] == ["SAINT_MERE", "HURTGEN"]
-```}

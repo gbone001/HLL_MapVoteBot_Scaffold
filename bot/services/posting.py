@@ -6,11 +6,11 @@ from typing import Any, Dict, Optional
 
 from discord import Embed
 
-from persistence.repository import Repository
-from utils.maps import base_map_code, normalize_cooldowns
-from services.voting import determine_winner
-from services.game_server_client import GameServerClient
-from views import ManagementControlView
+from bot.persistence.repository import Repository
+from bot.utils.maps import base_map_code, normalize_cooldowns
+from bot.services.voting import determine_winner
+from bot.services.game_server_client import GameServerClient
+from bot.views import ManagementControlView
 
 
 logger = logging.getLogger(__name__)

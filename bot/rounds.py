@@ -1,10 +1,10 @@
 import datetime as dt
 import discord
-from persistence.repository import Repository
-from utils.time import sydney_now, fmt_end
-from services.pools import Pools
-from services.posting import Posting
-from views import VoteView
+from bot.persistence.repository import Repository
+from bot.utils.time import sydney_now, fmt_end
+from bot.services.pools import Pools
+from bot.services.posting import Posting
+from bot.views import VoteView
 
 _round_seq = 1
 

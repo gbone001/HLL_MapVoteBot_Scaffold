@@ -1,7 +1,7 @@
 
 import discord
 from discord.ui import View, Button
-from persistence.repository import Repository
+from bot.persistence.repository import Repository
 
 
 class VoteButton(Button):

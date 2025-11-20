@@ -1,6 +1,6 @@
 import asyncio
-from services.game_server_client import GameServerClient
-from persistence.repository import Repository
+from bot.services.game_server_client import GameServerClient
+from bot.persistence.repository import Repository
 
 # TODO Probably want to change this so you can register handlers for different events, e.g. game start, game end.
 class GameStateNotifier:

@@ -1,10 +1,10 @@
 import json
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
-from services.game_server_client import GameServerClient
-from rounds import Rounds
-from persistence.repository import Repository
-from services.pools import Pools
+from bot.services.game_server_client import GameServerClient
+from bot.rounds import Rounds
+from bot.persistence.repository import Repository
+from bot.services.pools import Pools
 
 # TODO This shouldn't be here. Need to inject a config wrapper that can reload the config.
 def _load_config():
@@ -35,7 +35,14 @@ class VoteScheduler:
             default_min_votes = 0
         scheds = await self.repository.load_schedules()
         for s in scheds:
-            s.setdefault("mapvote_cooldown", default_cd)
+            mv_cd = s.get("mapvote_cooldown")
+            if mv_cd is None or mv_cd == "":
+                s["mapvote_cooldown"] = default_cd
+            else:
+                try:
+                    s["mapvote_cooldown"] = max(0, int(mv_cd))
+                except (TypeError, ValueError):
+                    s["mapvote_cooldown"] = default_cd
             s.setdefault("mapvote_enabled", True)
             s.setdefault("minimum_votes", default_min_votes)
             try:

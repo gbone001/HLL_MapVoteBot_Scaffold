@@ -2,10 +2,10 @@ import aiohttp
 import json
 import logging
 import os
-from config import Config
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
-from services.game_server_client import GameServerClient
+from bot.config import Config
+from bot.services.game_server_client import GameServerClient
 
 
 logger = logging.getLogger(__name__)

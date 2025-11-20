@@ -1,18 +1,18 @@
 import json
 import logging
+import discord
 from discord import app_commands
 from discord.ext import commands
-from config import Config
-from services.pools import Pools
-from persistence.repository import Repository
-from services.posting import Posting
-from services.game_watch import GameStateNotifier
-from rounds import Rounds
-from services.ap_scheduler import VoteScheduler
-from services.crcon_client import create as create_crcon
-from services.game_server_client import GameServerClient
 
-import discord
+from bot.config import Config
+from bot.persistence.repository import Repository
+from bot.rounds import Rounds
+from bot.services.ap_scheduler import VoteScheduler
+from bot.services.crcon_client import create as create_crcon
+from bot.services.game_server_client import GameServerClient
+from bot.services.game_watch import GameStateNotifier
+from bot.services.pools import Pools
+from bot.services.posting import Posting
 
 logger = logging.getLogger(__name__)
 
