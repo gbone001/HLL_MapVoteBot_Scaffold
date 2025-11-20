@@ -68,3 +68,9 @@ All commands require Discord administrator permissions and relay directly throug
 - The bot starts an **AsyncIOScheduler** (AEST/AEDT timezone) and loads all entries from `schedules.json`.
 - Jobs can be reloaded automatically on an interval controlled by `scheduler_reload_minutes` in `config.json` (default `60`). Set `0` to disable.
 - Admins can use `/schedule_set` to create or update schedule rows without editing files; this also reloads jobs immediately.
+
+## Testing
+
+For the complete testing approach (unit, service, Discord stubs, scheduler, RCON v2, CRCON HTTP client and contract tests, plus CI recommendations), see the Testing Guide:
+
+- docs/TESTING.md
