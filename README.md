@@ -27,6 +27,7 @@
     "day_of_week": "fri"
   },
   "mapvote_cooldown": 3,
+  "minimum_votes": 5,
   "mapvote_enabled": true,
   "settings": {
     "high_ping_threshold_ms": 180,
@@ -45,6 +46,8 @@
 The example above uses an APS `cron` trigger that fires every Friday at 18:00.
 
 `mapvote_enabled` controls whether an interactive Discord map vote is started for this schedule (`true`) or whether the bot will pick a map immediately and push it to the server (`false`). Cooldown behaviour still applies when `mapvote_enabled` is `false`.
+
+`minimum_votes` sets the minimum number of ballots that must be cast before the vote result is honoured. If the round closes with fewer votes than this threshold, the bot falls back to the random selection logic (same as the "no votes" case) so that a winner is still chosen without favouring a small sample.
 
 `votekick_threshold_pairs` follows the CRCON API shape: each entry is `[player_count, votes_required]`.  
 If you prefer to type a quick string (e.g. `"0:60,60:70"`), the bot will coerce it into the pair list automatically when saving schedules.

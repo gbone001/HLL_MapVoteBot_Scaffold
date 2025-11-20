@@ -3,6 +3,7 @@
     "pool": "Warfare Week A",
     "cron": "0 18 * * FRI",
     "mapvote_cooldown": 3,
+    "minimum_votes": 5,
     "settings": {
       "high_ping_threshold_ms": 180,
       "votekick_enabled": true,

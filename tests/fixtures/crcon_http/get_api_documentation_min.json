@@ -1,0 +1,28 @@
+{
+  "result": [
+    {
+      "name": "get_map_rotation",
+      "method": "GET",
+      "args": []
+    },
+    {
+      "name": "get_public_info",
+      "method": "GET",
+      "args": []
+    },
+    {
+      "name": "add_map_to_rotation",
+      "method": "POST",
+      "args": [
+        {"name": "map_name", "required": true}
+      ]
+    },
+    {
+      "name": "set_next_map",
+      "method": "POST",
+      "args": [
+        {"name": "map_name", "required": true}
+      ]
+    }
+  ]
+}

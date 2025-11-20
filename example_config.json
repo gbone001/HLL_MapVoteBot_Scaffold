@@ -3,6 +3,7 @@
   "vote_channel_id": "1322197840495378432",
   "vote_duration_minutes": 60,
   "mapvote_cooldown": 4,
+  "minimum_votes": 0,
   "scheduler_reload_minutes": 60,
   "crcon": {
     "host": "45.137.245.36",
