@@ -1,17 +1,18 @@
 import json
 import logging
+import discord
 from discord import app_commands
 from discord.ext import commands
-from config import Config
-from services.pools import Pools
-from persistence.repository import Repository
-from services.posting import Posting
-from services.game_watch import GameStateNotifier
-from rounds import Rounds
-from services.ap_scheduler import VoteScheduler
-from services.crcon_client import CrconClient, create as create_crcon
 
-import discord
+from bot.config import Config
+from bot.persistence.repository import Repository
+from bot.rounds import Rounds
+from bot.services.ap_scheduler import VoteScheduler
+from bot.services.crcon_client import create as create_crcon
+from bot.services.game_server_client import GameServerClient
+from bot.services.game_watch import GameStateNotifier
+from bot.services.pools import Pools
+from bot.services.posting import Posting
 
 logger = logging.getLogger(__name__)
 
@@ -51,8 +52,8 @@ def create(config: Config):
     mapvote_cooldown = int(config.get("mapvote_cooldown", 2))
 
     repository = Repository()
-    crcon_client = create_crcon(config)
-    posting = Posting(repository, crcon_client)
+    crcon_client: GameServerClient = create_crcon(config)
+    posting = Posting(repository, crcon_client, default_mapvote_cooldown=mapvote_cooldown)
     pools = Pools(repository)
     rounds = Rounds(repository, pools, posting, vote_duration_minutes, mapvote_cooldown)
     game_state_notifier = GameStateNotifier(repository, crcon_client)
@@ -69,7 +70,7 @@ def create(config: Config):
     )
 
 class MapVoteBot(commands.Bot):
-    def __init__(self, guild_id, vote_channel_id, crcon_client: CrconClient, pools: Pools, posting: Posting, repository: Repository, game_state_notifier: GameStateNotifier, rounds: Rounds):
+    def __init__(self, guild_id, vote_channel_id, crcon_client: GameServerClient, pools: Pools, posting: Posting, repository: Repository, game_state_notifier: GameStateNotifier, rounds: Rounds):
         self.guild_id = guild_id
         self.vote_channel_id = vote_channel_id
         self.crcon_client = crcon_client
@@ -123,11 +124,15 @@ class MapVoteBot(commands.Bot):
 
         # /schedule_set to add/update schedules
         @self.tree.command(name="schedule_set", description="Create or update a scheduled vote")
+        @app_commands.describe(
+            minimum_votes="Minimum ballots required before honoring the vote result"
+        )
         async def schedule_set(
             interaction: discord.Interaction,
             pool: str,
             cron: str,
             mapvote_cooldown: int | None = None,
+            minimum_votes: int | None = None,
             high_ping_threshold_ms: int | None = None,
             votekick_enabled: bool | None = None,
             votekick_threshold: str | None = None,
@@ -145,6 +150,8 @@ class MapVoteBot(commands.Bot):
                 scheds.append(row)
             if mapvote_cooldown is not None:
                 row["mapvote_cooldown"] = int(mapvote_cooldown)
+            if minimum_votes is not None:
+                row["minimum_votes"] = max(0, int(minimum_votes))
 
             settings = row.setdefault("settings", {})
 

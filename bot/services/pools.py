@@ -1,6 +1,6 @@
 import random
-from utils.maps import base_map_code, normalize_cooldowns
-from persistence.repository import Repository
+from bot.utils.maps import base_map_code, normalize_cooldowns
+from bot.persistence.repository import Repository
 
 
 class Pools:

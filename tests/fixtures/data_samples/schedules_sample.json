@@ -1,0 +1,9 @@
+[
+  {
+    "pool": "Warfare Week A",
+    "aps": {"trigger": "cron", "minute": 0, "hour": 18, "day_of_week": "fri"},
+    "mapvote_cooldown": 2,
+    "mapvote_enabled": true,
+    "settings": {"high_ping_threshold_ms": 180, "votekick_enabled": true}
+  }
+]

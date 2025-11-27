@@ -4,8 +4,8 @@ import asyncio
 import os
 
 from dotenv import load_dotenv
-from config import Config
-from discord_bot import create
+from bot.config import Config
+from bot.discord_bot import create
 
 def load_config():
     path = "config.json"
